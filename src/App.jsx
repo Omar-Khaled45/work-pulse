@@ -1,8 +1,32 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import AppLayout from "./layout/AppLayout";
+
+import MyTasks from "./pages/MyTasks";
+import Projects from "./pages/Projects";
+import Settings from "./pages/Settings";
+import AppHome from "./pages/AppHome";
+
+const queryClient = new QueryClient();
+
+window.__TANSTACK_QUERY_CLIENT__ = queryClient;
+
 const App = () => {
   return (
-    <div className="flex h-screen items-center justify-center bg-green-300">
-      <div className="h-52 w-52 cursor-pointer rounded-xl border border-black bg-gray-400 shadow-xl transition-all duration-300 hover:-translate-y-2"></div>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate to="home" replace />} />
+            <Route path="home" element={<AppHome />} />
+            <Route path="tasks" element={<MyTasks />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
