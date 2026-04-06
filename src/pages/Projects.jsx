@@ -1,14 +1,10 @@
-import { Funnel, Plus, SearchIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 
 import Heading from "@/components/common/Heading";
 import ProjectItemsContainer from "@/features/projects/ProjectItemsContainer";
+import ProjectsOperations from "@/features/projects/ProjectsOperations";
 
 const Projects = () => {
   return (
@@ -22,17 +18,7 @@ const Projects = () => {
         </Button>
       </div>
 
-      <div className="mb-5 flex max-w-sm gap-3">
-        <InputGroup className={"bg-white"}>
-          <InputGroupInput id="inline-start-input" placeholder="Search..." />
-          <InputGroupAddon align="inline-start">
-            <SearchIcon className="text-muted-foreground" />
-          </InputGroupAddon>
-        </InputGroup>
-        <Button variant="outline">
-          <Funnel />
-        </Button>
-      </div>
+      <ProjectsOperations />
 
       <ProjectItemsContainer />
     </>

@@ -1,8 +1,10 @@
+import { Link } from "react-router";
+
 const Logo = () => {
   return (
-    <div className="p-3">
+    <Link to="home" className="p-3">
       <img src="../../../public/logo.png" alt="Logo" />
-    </div>
+    </Link>
   );
 };
 

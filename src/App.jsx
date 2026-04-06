@@ -7,6 +7,7 @@ import MyTasks from "./pages/MyTasks";
 import Projects from "./pages/Projects";
 import Settings from "./pages/Settings";
 import AppHome from "./pages/AppHome";
+import ProjectDetails from "./pages/ProjectDetails";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="home" element={<AppHome />} />
             <Route path="tasks" element={<MyTasks />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="projects/:id" element={<ProjectDetails />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

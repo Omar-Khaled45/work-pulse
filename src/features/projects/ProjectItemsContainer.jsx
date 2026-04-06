@@ -1,36 +1,68 @@
+import { useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FolderPlus } from "lucide-react";
-
-import { getProjects } from "@/services/apiProjects";
 
 import Loader from "@/components/common/Loader";
 import Empty from "@/components/common/Empty";
 import ProjectItem from "./ProjectItem";
+import Error from "@/components/common/Error";
+
+import { getProjects } from "@/services/apiProjects";
 
 const ProjectItemsContainer = () => {
+  const [searchParams] = useSearchParams();
+
+  const filterValue = searchParams.get("status") || "all";
+  const searchValue = searchParams.get("q") || "";
+
+  // Filtering projects: API-Side Filtering
+  const filter =
+    filterValue && filterValue !== "all"
+      ? { field: "status", value: filterValue }
+      : null;
+
+  const search =
+    searchValue && searchValue !== ""
+      ? { field: "q", value: searchValue }
+      : null;
+
   const {
     isPending,
     isError,
     data: projects,
     error,
-  } = useQuery({ queryKey: ["projects"], queryFn: getProjects });
+  } = useQuery({
+    queryKey: ["projects", filter, search],
+    queryFn: () => getProjects({ filter, search }),
+  });
 
   if (isPending) return <Loader />;
 
-  if (!projects.length)
+  if (isError) {
+    return <Error error={error.message} />;
+  }
+
+  if (!projects.length && !filter && !search)
     return (
       <Empty
         icon={<FolderPlus />}
-        title="No Project yet"
+        title="No Projects yet"
         message="Get started by creating a new project."
       />
     );
 
-  if (isError) console.log(error.message);
+  if (!projects.length && (filter || search))
+    return (
+      <Empty
+        icon={<FolderPlus />}
+        title="No Projects found"
+        message="Try adjusting your filters."
+      />
+    );
 
   return (
-    <div className="grid gap-4 @md:grid-cols-2 @lg:grid-cols-3">
-      {projects?.map((project) => (
+    <div className="grid gap-4 @md:grid-cols-2 @xl:grid-cols-3">
+      {projects.map((project) => (
         <ProjectItem key={project.id} project={project} />
       ))}
     </div>

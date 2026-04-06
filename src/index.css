@@ -261,4 +261,7 @@
     background-color: var(--muted-foreground);
     border-radius: var(--radius-md);
   }
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
