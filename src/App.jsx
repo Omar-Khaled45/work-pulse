@@ -23,7 +23,7 @@ const App = () => {
             <Route path="home" element={<AppHome />} />
             <Route path="tasks" element={<MyTasks />} />
             <Route path="projects" element={<Projects />} />
-            <Route path="projects/:id" element={<ProjectDetails />} />
+            <Route path="projects/:projectId" element={<ProjectDetails />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

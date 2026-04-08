@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SearchIcon } from "lucide-react";
+import { PanelLeft, SearchIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -7,11 +7,10 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import Container from "@/components/common/Container";
 
-const Header = () => {
+const Header = ({ setIsSidebarOpened }) => {
   const [theme, setTheme] = useState("");
 
   const toggleTheme = () => {
@@ -30,17 +29,13 @@ const Header = () => {
 
   return (
     <header className="border-b-border bg-background relative flex items-center border-b p-3">
-      <SidebarTrigger className="hover:bg-accent absolute p-2" />
-      <Container className="flex justify-between px-10">
-        <InputGroup className={"w-sm bg-white"}>
-          <InputGroupInput
-            id="inline-start-input"
-            placeholder="Search Everything"
-          />
-          <InputGroupAddon align="inline-start">
-            <SearchIcon className="text-muted-foreground" />
-          </InputGroupAddon>
-        </InputGroup>
+      <button
+        className="hover:bg-accent transition-300 absolute cursor-pointer rounded-lg p-2"
+        onClick={() => setIsSidebarOpened((prev) => !prev)}
+      >
+        <PanelLeft size={20} />
+      </button>
+      <Container className="flex justify-end px-10">
         <Button variant="secondary" onClick={toggleTheme}>
           {theme === "dark" ? "☀️" : "🌙"}
         </Button>

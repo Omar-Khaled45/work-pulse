@@ -5,14 +5,19 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 
 import { formatDate } from "@/utils/formatDate";
+import { TASK_STATUS } from "@/constants/constants";
 
 const ProjectStats = ({ project }) => {
   const { tasks } = project;
 
-  const completedTasks = tasks.filter((task) => task.status === "done");
+  const completedTasks = tasks.filter(
+    (task) => task.status === TASK_STATUS.DONE,
+  );
 
   const calcProgress =
-    Math.round((completedTasks.length / tasks.length) * 100) || 0;
+    tasks.length === 0
+      ? 0
+      : Math.round((completedTasks.length / tasks.length) * 100);
 
   return (
     tasks.length > 0 && (

@@ -18,7 +18,7 @@ const ProjectDetailsTasksTable = ({ project }) => {
   const { tasks } = project;
 
   return (
-    <div className="flex- space-y-3">
+    <div className="space-y-3">
       <div className="flex justify-between">
         <h5 className="text-lg font-semibold">Project Tasks</h5>
         <Button size="lg">Add Task</Button>
@@ -28,7 +28,7 @@ const ProjectDetailsTasksTable = ({ project }) => {
         <Empty
           icon={<FilePlus />}
           title="No tasks yet"
-          message="Start creating tasks."
+          message="Start adding tasks."
         />
       ) : (
         <div className="bg-card overflow-auto rounded-xl shadow-lg">
@@ -46,12 +46,14 @@ const ProjectDetailsTasksTable = ({ project }) => {
               {tasks.map((task) => (
                 <TableRow
                   key={task.id}
-                  className="hover:bg-muted group cursor-pointer"
+                  className="hover:bg-muted cursor-pointer"
                 >
-                  <TableCell className="group-hover:text-primary">
+                  <TableCell className="hover:text-primary transition-300">
                     {task.title}
                   </TableCell>
-                  <TableCell>{task.assigned_to}</TableCell>
+                  <TableCell className="hover:text-primary transition-300">
+                    {task.assigned_to}
+                  </TableCell>
                   <TableCell>
                     <StyledBadge style={task.status} />
                   </TableCell>

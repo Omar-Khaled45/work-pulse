@@ -35,3 +35,14 @@ export const BADGE_STYLE = {
     className: "bg-high text-high-foreground border-high-border",
   },
 };
+
+export const TASK_STATUS = {
+  DONE: "done",
+  IN_PROGRESS: "in-progress",
+  TODO: "todo",
+};
+
+export const PROJECT_STATUS = {
+  COMPLETED: "completed",
+  ACTIVE: "active",
+};

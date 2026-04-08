@@ -1,18 +1,21 @@
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import StyledBadge from "@/components/common/StyledBadge";
 
 import { capitalize } from "@/utils/capitalize";
-import { Badge } from "@/components/ui/badge";
+import { PROJECT_STATUS, TASK_STATUS } from "@/constants/constants";
 
 const ProjectDetailsHeader = ({ project }) => {
   const { tasks } = project;
 
-  const completedTasks = tasks.filter((task) => task.status === "done");
+  const completedTasks = tasks.filter(
+    (task) => task.status === TASK_STATUS.DONE,
+  );
 
   const isCompleted =
     tasks.length > 0 &&
     completedTasks.length === tasks.length &&
-    project.status !== "completed";
+    project.status !== PROJECT_STATUS.COMPLETED;
 
   return (
     <div className="mb-8 space-y-2">

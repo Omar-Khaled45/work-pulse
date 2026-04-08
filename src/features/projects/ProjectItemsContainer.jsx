@@ -39,6 +39,7 @@ const ProjectItemsContainer = () => {
   if (isPending) return <Loader />;
 
   if (isError) {
+    console.log(error);
     return <Error error={error.message} />;
   }
 

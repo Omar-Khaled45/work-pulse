@@ -1,10 +1,7 @@
-import { Plus } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-
 import Heading from "@/components/common/Heading";
 import ProjectItemsContainer from "@/features/projects/ProjectItemsContainer";
 import ProjectsOperations from "@/features/projects/ProjectsOperations";
+import CreateProjectForm from "@/features/projects/CreateProjectForm";
 
 const Projects = () => {
   return (
@@ -13,9 +10,8 @@ const Projects = () => {
         <Heading title={"Projects"}>
           Manage all your team's ongoing initiatives.
         </Heading>
-        <Button size="lg" className="@max-md:w-full">
-          <Plus /> Create Project
-        </Button>
+
+        <CreateProjectForm />
       </div>
 
       <ProjectsOperations />

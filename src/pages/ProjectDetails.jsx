@@ -7,10 +7,10 @@ import ProjectDetailsTasksTable from "@/features/projects/ProjectDetailsTasksTab
 import ProjectDetailsHeader from "@/features/projects/ProjectDetailsHeader";
 import ProjectStats from "@/features/projects/ProjectStats";
 
-import { getProjects } from "@/services/apiProjects";
+import { getProjectDetails } from "@/services/apiProjects";
 
 const ProjectDetails = () => {
-  const { id } = useParams();
+  const { projectId } = useParams();
 
   const {
     isPending,
@@ -18,8 +18,8 @@ const ProjectDetails = () => {
     data: project,
     error,
   } = useQuery({
-    queryKey: ["project-details", id],
-    queryFn: () => getProjects({ id }),
+    queryKey: ["project-details", projectId],
+    queryFn: () => getProjectDetails(projectId),
   });
 
   if (isPending) return <Loader />;
