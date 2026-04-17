@@ -14,7 +14,6 @@ WorkPulse is a workspace-based project management platform that enables teams to
 - Assign and track tasks  
 - Automatically calculate project progress  
 - Collaborate through structured task comments  
-- Monitor activity logs for transparency  
 - View dynamic project-level analytics dashboards  
 
 The system uses **Supabase Authentication** and **Row-Level Security (RLS)** to enforce secure data isolation between workspaces and implement fine-grained permission logic.
@@ -49,7 +48,6 @@ This ensures users can only access and modify data within their authorized works
 
 ### ✅ Collaboration
 - Structured task-level comments  
-- Activity logs for auditing and tracking  
 - Real-time updates via Supabase  
 
 ### ✅ Analytics & Dashboards
