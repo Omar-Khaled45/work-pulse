@@ -32,7 +32,7 @@ const ProjectDetails = () => {
     <>
       <ProjectDetailsHeader project={project} />
 
-      <div className="flex flex-col gap-6 @5xl:flex-row">
+      <div className="jut flex flex-col gap-6 @5xl:flex-row">
         <ProjectDetailsTasksTable project={project} />
 
         <ProjectStats project={project} />

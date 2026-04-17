@@ -1,4 +1,4 @@
-export const BADGE_STYLE = {
+export const STATUS_AND_PRIORITY = {
   // Projects and tasks status
   active: {
     label: "Active",

@@ -4,8 +4,9 @@ import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 
-import { formatDate } from "@/utils/formatDate";
 import { TASK_STATUS } from "@/constants/constants";
+
+import { formatDate } from "@/utils/formatDate";
 
 const ProjectStats = ({ project }) => {
   const { tasks } = project;
@@ -15,9 +16,9 @@ const ProjectStats = ({ project }) => {
   );
 
   const calcProgress =
-    tasks.length === 0
-      ? 0
-      : Math.round((completedTasks.length / tasks.length) * 100);
+    tasks.length > 0
+      ? Math.round((completedTasks.length / tasks.length) * 100)
+      : 0;
 
   return (
     tasks.length > 0 && (

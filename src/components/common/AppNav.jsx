@@ -1,10 +1,10 @@
+import { NavLink } from "react-router";
 import {
   FolderKanban,
   Home,
   LayoutList,
   SlidersHorizontal,
 } from "lucide-react";
-import { NavLink } from "react-router";
 
 const AppNav = () => {
   return (

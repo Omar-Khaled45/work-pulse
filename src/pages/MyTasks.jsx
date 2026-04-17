@@ -11,13 +11,10 @@ const MyTasks = () => {
 
   return (
     <>
-      <div className="flex justify-between space-y-3 @max-md:mb-3 @max-md:flex-col @md:items-center">
+      <div className="mb-3">
         <Heading title={"My Tasks"}>
           Track and manage individual action items.
         </Heading>
-        <Button size="lg" className="@max-md:w-full">
-          <Plus /> Add Task
-        </Button>
       </div>
 
       <MyTasksOperations setSearchQuery={setSearchQuery} />

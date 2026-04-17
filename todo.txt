@@ -1,0 +1,2 @@
+TODO:
+- Improve the editing function of projects by prevent the submit function in case no new data is entered in the edit form

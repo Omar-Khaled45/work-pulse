@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { SearchIcon, SearchX } from "lucide-react";
 
-import { Field } from "@/components/ui/field";
+import { Field, FieldGroup } from "@/components/ui/field";
 import {
   Select,
   SelectContent,
@@ -63,9 +63,9 @@ const Filter = ({ options }) => {
   }, [searchParams]);
 
   return (
-    <>
-      <Field orientation="horizontal" className="max-w-xl">
-        <InputGroup className={"bg-white"}>
+    <FieldGroup>
+      <Field orientation="responsive" className="max-w-xl">
+        <InputGroup className={"flex-1 bg-white"}>
           <InputGroupInput
             id="inline-start-input"
             placeholder="Search..."
@@ -77,7 +77,29 @@ const Filter = ({ options }) => {
           </InputGroupAddon>
         </InputGroup>
 
-        <Button onClick={handleSearchQuery}>Search</Button>
+        <div className="flex items-center gap-2">
+          <Button onClick={handleSearchQuery} className="flex-1">
+            Search
+          </Button>
+
+          <Select
+            value={searchParams.get("status") || "all"}
+            onValueChange={(value) => handleChange(value)}
+          >
+            <SelectTrigger className="w-45 bg-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogContent className="flex flex-col items-center sm:max-w-md">
@@ -95,25 +117,7 @@ const Filter = ({ options }) => {
           </DialogContent>
         </Dialog>
 
-        <Select
-          value={searchParams.get("status") || "all"}
-          onValueChange={(value) => handleChange(value)}
-        >
-          <SelectTrigger className="w-45 bg-white">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-        {(searchQuery !== "" ||
+        {(searchParams.get("q") ||
           (searchParams.get("status") &&
             searchParams.get("status") !== "all")) && (
           <Button variant="outline" onClick={removeFilter}>
@@ -121,7 +125,7 @@ const Filter = ({ options }) => {
           </Button>
         )}
       </Field>
-    </>
+    </FieldGroup>
   );
 };
 

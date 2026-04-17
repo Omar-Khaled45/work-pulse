@@ -1,3 +1,11 @@
+import {
+  FolderKanban,
+  Home,
+  LayoutList,
+  SlidersHorizontal,
+} from "lucide-react";
+import { NavLink, useLocation } from "react-router";
+
 import Logo from "@/components/common/Logo";
 import {
   Sidebar,
@@ -9,14 +17,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-import {
-  FolderKanban,
-  Home,
-  LayoutList,
-  SlidersHorizontal,
-} from "lucide-react";
-import { NavLink, useLocation } from "react-router";
 
 const AppSidebar = () => {
   const location = useLocation();

@@ -18,3 +18,57 @@ export const getTasks = async ({ filter, search }) => {
 
   return tasks;
 };
+
+export const getTaskDetails = async (taskId) => {
+  const { data: task, error } = await supabase
+    .from("tasks")
+    .select(`*, projects(id)`)
+    .eq("id", taskId)
+    .single();
+
+  if (error) throw new Error("Task details could not be loaded.");
+
+  return task;
+};
+
+export const addEditTask = async (newTask) => {
+  const { data: task, error } = await supabase
+    .from("tasks")
+    .insert({ ...newTask });
+
+  if (error)
+    throw new Error(
+      "Can not create the task right now. Please try again later.",
+    );
+
+  return task;
+};
+
+export const updateTaskStatus = async ({ taskId, status }) => {
+  const { data: task, error } = await supabase
+    .from("tasks")
+    .update({ status: status })
+    .eq("id", taskId)
+    .select();
+
+  if (error)
+    throw new Error(
+      "Can not change the status of the task right now. Please try again later.",
+    );
+
+  return task;
+};
+
+export const deleteTask = async (taskId) => {
+  const { data: deletedTask, error } = await supabase
+    .from("tasks")
+    .delete()
+    .eq("id", taskId);
+
+  if (error)
+    throw new Error(
+      "Can not delete the task right now. Please try again later.",
+    );
+
+  return deletedTask;
+};

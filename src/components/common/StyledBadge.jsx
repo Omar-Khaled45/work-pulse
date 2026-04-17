@@ -1,13 +1,16 @@
-import { BADGE_STYLE } from "@/constants/constants";
-import { Badge } from "../ui/badge";
+import { STATUS_AND_PRIORITY } from "@/constants/constants";
 
-const StyledBadge = ({ style = "unknown" }) => {
-  const config = BADGE_STYLE[style];
+import { Badge } from "@/components/ui/badge";
+
+const StyledBadge = ({ style = "unknown", className = "" }) => {
+  const config = STATUS_AND_PRIORITY[style];
 
   if (!config) return <Badge variant="secondary">{style}</Badge>;
 
   return (
-    <Badge className={`text-sm ${config.className}`}>{config.label}</Badge>
+    <Badge className={`text-sm ${config.className} ${className}`}>
+      {config.label}
+    </Badge>
   );
 };
 

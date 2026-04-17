@@ -34,3 +34,53 @@ export const getProjectDetails = async (projectId) => {
 
   return project;
 };
+
+export const createEditProject = async ({ newProject, id }) => {
+  let query = supabase.from("projects");
+
+  // Create Project
+  if (!id) query = query.insert({ ...newProject });
+
+  // Edit Project
+  const { tasks, ...matchedData } = newProject;
+
+  if (id) query = query.update({ ...matchedData }).eq("id", id);
+
+  const { data: project, error } = await query.select();
+
+  if (error)
+    throw new Error(
+      "Can not create the project right now. Please try again later.",
+    );
+
+  return project;
+};
+
+export const updateProjectStatus = async ({ projectId, status }) => {
+  const { data: project, error } = await supabase
+    .from("projects")
+    .update({ status: status })
+    .eq("id", projectId)
+    .select();
+
+  if (error)
+    throw new Error(
+      "Can not change the status of the project right now. Please try again later.",
+    );
+
+  return project;
+};
+
+export const deleteProject = async (projectId) => {
+  const { data: deletedProject, error } = await supabase
+    .from("projects")
+    .delete()
+    .eq("id", projectId);
+
+  if (error)
+    throw new Error(
+      "Can not delete the project right now. Please try again later.",
+    );
+
+  return deletedProject;
+};

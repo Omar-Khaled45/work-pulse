@@ -62,7 +62,7 @@ const ProjectItemsContainer = () => {
     );
 
   return (
-    <div className="grid gap-4 @md:grid-cols-2 @xl:grid-cols-3">
+    <div className="grid gap-4 @xl:grid-cols-2 @2xl:grid-cols-3">
       {projects.map((project) => (
         <ProjectItem key={project.id} project={project} />
       ))}

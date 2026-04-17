@@ -2,12 +2,12 @@ import { FolderPlus } from "lucide-react";
 import { useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { getTasks } from "@/services/apiTasks";
-
 import TaskItem from "./TaskItem";
 import Loader from "@/components/common/Loader";
 import Empty from "@/components/common/Empty";
 import Error from "@/components/common/Error";
+
+import { getTasks } from "@/services/apiTasks";
 
 const TaskItemsContainer = () => {
   const [searchParams] = useSearchParams();

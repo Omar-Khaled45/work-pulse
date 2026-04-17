@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import { PanelLeft, SearchIcon } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
-
 import Container from "@/components/common/Container";
 
 const Header = ({ setIsSidebarOpened }) => {
