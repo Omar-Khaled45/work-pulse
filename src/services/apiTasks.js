@@ -31,10 +31,16 @@ export const getTaskDetails = async (taskId) => {
   return task;
 };
 
-export const addEditTask = async (newTask) => {
-  const { data: task, error } = await supabase
-    .from("tasks")
-    .insert({ ...newTask });
+export const addEditTask = async ({ newTask, id }) => {
+  let query = supabase.from("tasks");
+
+  // Create Project
+  if (!id) query = query.insert({ ...newTask });
+
+  // Edit Project
+  if (id) query = query.update({ ...newTask }).eq("id", id);
+
+  const { data: task, error } = await query.select();
 
   if (error)
     throw new Error(

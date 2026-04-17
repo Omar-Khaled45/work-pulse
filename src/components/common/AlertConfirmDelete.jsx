@@ -12,7 +12,7 @@ import {
 const AlertConfirmDelete = ({
   isAlertOpen,
   setIsAlertOpen,
-  isPending,
+  isDeleting,
   handleDelete,
   alertTitle,
   alertDescription,
@@ -28,7 +28,7 @@ const AlertConfirmDelete = ({
           <AlertDialogCancel
             className="text-[16px] sm:flex-1"
             size="xl"
-            disabled={isPending}
+            disabled={isDeleting}
           >
             Cancel
           </AlertDialogCancel>
@@ -36,10 +36,10 @@ const AlertConfirmDelete = ({
             className="text-[16px] sm:flex-1"
             variant="destructive"
             size="xl"
-            disabled={isPending}
+            disabled={isDeleting}
             onClick={handleDelete}
           >
-            {isPending ? "Deleting..." : "Continue"}
+            {isDeleting ? "Deleting..." : "Continue"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

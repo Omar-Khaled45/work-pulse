@@ -1,4 +1,5 @@
-import { FilePlus } from "lucide-react";
+import { useState } from "react";
+import { FilePlus, Plus } from "lucide-react";
 
 import {
   Table,
@@ -9,10 +10,12 @@ import {
 } from "@/components/ui/table";
 import Empty from "@/components/common/Empty";
 import AddEditTaskForm from "@/features/tasks/AddEditTaskForm";
-
 import TaskRow from "@/features/tasks/TaskRow";
+import { Button } from "@/components/ui/button";
 
 const ProjectDetailsTasksTable = ({ project }) => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const { tasks } = project;
 
   return (
@@ -20,7 +23,10 @@ const ProjectDetailsTasksTable = ({ project }) => {
       <div className="flex-1 space-y-3">
         <div className="flex justify-between">
           <h5 className="text-lg font-semibold">Project Tasks</h5>
-          <AddEditTaskForm />
+
+          <Button size="lg" onClick={() => setIsFormOpen((prev) => !prev)}>
+            <Plus /> Add Task
+          </Button>
         </div>
 
         {tasks.length === 0 ? (
@@ -51,6 +57,8 @@ const ProjectDetailsTasksTable = ({ project }) => {
           </div>
         )}
       </div>
+
+      {isFormOpen && <AddEditTaskForm setIsFormOpen={setIsFormOpen} />}
     </>
   );
 };

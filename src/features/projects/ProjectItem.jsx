@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { Calendar, EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 
@@ -15,41 +14,36 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import StyledBadge from "@/components/common/StyledBadge";
+import AlertConfirmDelete from "@/components/common/AlertConfirmDelete";
+import CreateEditProjectForm from "@/features/projects/CreateEditProjectForm";
+
+import { TASK_STATUS } from "@/constants/constants";
 
 import { formatDate } from "@/utils/formatDate";
 
-import { deleteProject } from "@/services/apiProjects";
-
-import { TASK_STATUS } from "@/constants/constants";
-import AlertConfirmDelete from "@/components/common/AlertConfirmDelete";
-import CreateEditProjectForm from "./CreateEditProjectForm";
+import { useDeleteProject } from "@/features/projects/useDeleteProject";
 
 const ProjectItem = ({ project }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  const { deleteProject, isDeleting } = useDeleteProject();
+
+  const { tasks, ...projectToEdit } = project;
+
   const calcProgress =
-    project.tasks.length > 0
+    tasks.length > 0
       ? Math.round(
-          (project.tasks.filter((task) => task.status === TASK_STATUS.DONE)
-            .length /
-            project.tasks.length) *
+          (tasks.filter((task) => task.status === TASK_STATUS.DONE).length /
+            tasks.length) *
             100,
         )
       : 0;
 
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: deleteProject,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      setIsAlertOpen(false);
-    },
-  });
-
   const handleDeleteProject = () => {
-    mutate(project.id);
+    deleteProject(project.id, {
+      onSuccess: () => setIsAlertOpen(false),
+    });
   };
 
   return (
@@ -120,7 +114,7 @@ const ProjectItem = ({ project }) => {
         <CreateEditProjectForm
           isFormOpen={isFormOpen}
           setIsFormOpen={setIsFormOpen}
-          projectToEdit={project}
+          projectToEdit={projectToEdit}
         />
       )}
 
@@ -131,7 +125,7 @@ const ProjectItem = ({ project }) => {
         }
         isAlertOpen={isAlertOpen}
         setIsAlertOpen={setIsAlertOpen}
-        isPending={isPending}
+        isDeleting={isDeleting}
         handleDelete={handleDeleteProject}
       />
     </>

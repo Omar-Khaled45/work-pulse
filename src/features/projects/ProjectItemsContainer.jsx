@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
 import { FolderPlus } from "lucide-react";
 
 import Loader from "@/components/common/Loader";
@@ -7,7 +6,7 @@ import Empty from "@/components/common/Empty";
 import ProjectItem from "./ProjectItem";
 import Error from "@/components/common/Error";
 
-import { getProjects } from "@/services/apiProjects";
+import { useGetProjects } from "@/features/projects/useGetProjects";
 
 const ProjectItemsContainer = () => {
   const [searchParams] = useSearchParams();
@@ -26,17 +25,12 @@ const ProjectItemsContainer = () => {
       ? { field: "q", value: searchValue }
       : null;
 
-  const {
-    isPending,
-    isError,
-    data: projects,
-    error,
-  } = useQuery({
-    queryKey: ["projects", filter, search],
-    queryFn: () => getProjects({ filter, search }),
+  const { projects, isFetchingProjects, isError, error } = useGetProjects({
+    filter,
+    search,
   });
 
-  if (isPending) return <Loader />;
+  if (isFetchingProjects) return <Loader />;
 
   if (isError) {
     console.log(error);

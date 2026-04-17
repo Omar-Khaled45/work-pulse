@@ -42,9 +42,7 @@ export const createEditProject = async ({ newProject, id }) => {
   if (!id) query = query.insert({ ...newProject });
 
   // Edit Project
-  const { tasks, ...matchedData } = newProject;
-
-  if (id) query = query.update({ ...matchedData }).eq("id", id);
+  if (id) query = query.update({ ...newProject }).eq("id", id);
 
   const { data: project, error } = await query.select();
 

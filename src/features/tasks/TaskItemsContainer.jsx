@@ -1,13 +1,12 @@
 import { FolderPlus } from "lucide-react";
 import { useSearchParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
 
 import TaskItem from "./TaskItem";
 import Loader from "@/components/common/Loader";
 import Empty from "@/components/common/Empty";
 import Error from "@/components/common/Error";
 
-import { getTasks } from "@/services/apiTasks";
+import { useGetTasks } from "@/features/tasks/useGetTasks";
 
 const TaskItemsContainer = () => {
   const [searchParams] = useSearchParams();
@@ -26,17 +25,12 @@ const TaskItemsContainer = () => {
       ? { field: "q", value: searchValue }
       : null;
 
-  const {
-    isPending,
-    isError,
-    data: tasks,
-    error,
-  } = useQuery({
-    queryKey: ["tasks", filter, search],
-    queryFn: () => getTasks({ filter, search }),
+  const { tasks, isFetchingTasks, isError, error } = useGetTasks({
+    filter,
+    search,
   });
 
-  if (isPending) return <Loader />;
+  if (isFetchingTasks) return <Loader />;
 
   if (isError) {
     return <Error error={error.message} />;

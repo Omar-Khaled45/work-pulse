@@ -1,27 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 import Loader from "@/components/common/Loader";
 import Error from "@/components/common/Error";
-import MobileTaskDetails from "./MobileTaskDetails";
-import DesktopTaskDetails from "./DesktopTaskDetails";
+import MobileTaskDetails from "@/features/tasks/MobileTaskDetails";
+import DesktopTaskDetails from "@/features/tasks/DesktopTaskDetails";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { getTaskDetails } from "@/services/apiTasks";
+import { useGetTaskDetails } from "@/features/tasks/useGetTaskDetails";
 
 const TaskDetails = () => {
-  const navigate = useNavigate();
-  const { taskId } = useParams();
+  const { isFetchingTaskDetails, task, isError, error } = useGetTaskDetails();
 
-  const {
-    isPending,
-    isError,
-    data: task,
-    error,
-  } = useQuery({
-    queryKey: ["task-details", taskId],
-    queryFn: () => getTaskDetails(taskId),
-  });
+  const navigate = useNavigate();
 
   const handleClose = () => {
     navigate(-1);
@@ -29,7 +19,7 @@ const TaskDetails = () => {
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  if (isPending) return <Loader />;
+  if (isFetchingTaskDetails) return <Loader />;
 
   if (isError) {
     return <Error error={error.message} />;

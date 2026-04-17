@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router";
 import {
   Calendar,
   CopyPlus,
@@ -19,19 +19,19 @@ import {
 import { Button } from "@/components/ui/button";
 import StyledBadge from "@/components/common/StyledBadge";
 import AlertConfirmDelete from "@/components/common/AlertConfirmDelete";
+import AddEditTaskForm from "@/features/tasks/AddEditTaskForm";
 
 import { formatDate } from "@/utils/formatDate";
 
-import {
-  addEditTask as addTaskAPI,
-  deleteTask as deleteTaskAPI,
-} from "@/services/apiTasks";
-import { useLocation, useNavigate } from "react-router";
+import { useDeleteTask } from "@/features/tasks/useDeleteTask";
+import { useDuplicateTask } from "@/features/tasks/useDuplicateTask";
 
 const TaskRow = ({ task }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const queryClient = useQueryClient();
+  const { deleteTask, isDeleting } = useDeleteTask();
+  const { duplicateTask } = useDuplicateTask();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,34 +48,13 @@ const TaskRow = ({ task }) => {
     project_id,
   } = task;
 
-  // Deleting task
-  const { mutate: deleteTask, isPending: isDeleting } = useMutation({
-    mutationFn: deleteTaskAPI,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["project-details"],
-      });
-      setIsAlertOpen(false);
-    },
-  });
-
-  // Duplicating task
-  const { mutate: duplicateTask } = useMutation({
-    mutationFn: addTaskAPI,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["project-details"],
-      });
-    },
-  });
-
   const handleDeleteTask = () => {
     deleteTask(id);
   };
 
   const handleDuplicateTask = () => {
     const duplicatedTask = {
-      title,
+      title: `${task.title} - COPIED`,
       description,
       status,
       priority,
@@ -85,7 +64,7 @@ const TaskRow = ({ task }) => {
       project_id,
     };
 
-    duplicateTask(duplicatedTask);
+    duplicateTask({ newTask: duplicatedTask });
   };
 
   const handleOpenTask = () => {
@@ -129,7 +108,7 @@ const TaskRow = ({ task }) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setIsFormOpen(true)}>
                 <Pencil /> Edit
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={handleDuplicateTask}>
@@ -147,6 +126,10 @@ const TaskRow = ({ task }) => {
           </DropdownMenu>
         </TableCell>
       </TableRow>
+
+      {isFormOpen && (
+        <AddEditTaskForm setIsFormOpen={setIsFormOpen} taskToEdit={task} />
+      )}
 
       <AlertConfirmDelete
         alertTitle={"Delete task?"}

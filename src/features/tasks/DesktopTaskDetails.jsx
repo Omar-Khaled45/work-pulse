@@ -15,30 +15,14 @@ import StyledBadge from "@/components/common/StyledBadge";
 
 import { capitalize } from "@/utils/capitalize";
 import { formatDate } from "@/utils/formatDate";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTaskStatus } from "@/services/apiTasks";
+
+import { useUpdateTaskStatus } from "@/features/tasks/useUpdateTaskStatus";
 
 const DesktopTaskDetails = ({ task, handleClose }) => {
-  const queryClient = useQueryClient();
-
-  const projectId = task.projects.id;
-
-  // Deleting task
-  const { mutate, isPending: isChangingStatus } = useMutation({
-    mutationFn: updateTaskStatus,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["task-details", task.id],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["project-details", projectId],
-      });
-    },
-  });
+  const { updateTaskStatus, isUpdatingStatus } = useUpdateTaskStatus();
 
   const handleStatusChange = (value) => {
-    mutate({ taskId: task.id, status: value });
+    updateTaskStatus({ taskId: task.id, status: value });
   };
 
   return (
@@ -73,7 +57,7 @@ const DesktopTaskDetails = ({ task, handleClose }) => {
               <Select
                 defaultValue={task.status}
                 onValueChange={handleStatusChange}
-                disabled={isChangingStatus}
+                disabled={isUpdatingStatus}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select status" />

@@ -16,14 +16,21 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import DatePicker from "@/components/common/DatePicker";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditProject } from "@/services/apiProjects";
+
+import { useCreateProject } from "@/features/projects/useCreateProject";
+import { useEditProject } from "@/features/projects/useEditProject";
 
 const CreateEditProjectForm = ({
   isFormOpen,
   setIsFormOpen,
   projectToEdit = {},
 }) => {
+  const { isCreating, createProject } = useCreateProject();
+
+  const { isEditing, editProject } = useEditProject();
+
+  const isWorking = isCreating || isEditing;
+
   const { id: editId, ...editValues } = projectToEdit;
 
   const isEditSession = Boolean(editId);
@@ -36,18 +43,6 @@ const CreateEditProjectForm = ({
     formState: { errors },
   } = useForm({
     defaultValues: isEditSession ? editValues : {},
-  });
-
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: createEditProject,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      setIsFormOpen(false);
-      reset();
-    },
   });
 
   const handleOpenForm = (open) => {
@@ -65,7 +60,27 @@ const CreateEditProjectForm = ({
           : data.due_date.toISOString(),
     };
 
-    mutate({ newProject: formattedData, id: editId });
+    if (isEditSession) {
+      editProject(
+        { newProject: formattedData, id: editId },
+        {
+          onSuccess: () => {
+            setIsFormOpen(false);
+            reset();
+          },
+        },
+      );
+    } else {
+      createProject(
+        { newProject: formattedData },
+        {
+          onSuccess: () => {
+            setIsFormOpen(false);
+            reset();
+          },
+        },
+      );
+    }
   };
 
   return (
@@ -142,17 +157,17 @@ const CreateEditProjectForm = ({
               <Button
                 type="submit"
                 className="p-5 md:w-30"
-                disabled={isPending}
+                disabled={isWorking}
               >
-                {isPending ? `Updating...` : "Update Project"}
+                {isWorking ? `Updating...` : "Update Project"}
               </Button>
             ) : (
               <Button
                 type="submit"
                 className="p-5 md:w-30"
-                disabled={isPending}
+                disabled={isWorking}
               >
-                {isPending ? `Creating...` : "Create Project"}
+                {isWorking ? `Creating...` : "Create Project"}
               </Button>
             )}
           </DialogFooter>

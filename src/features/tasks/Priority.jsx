@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
-const Priority = ({ field, error = {} }) => {
+const Priority = ({ value, field, error = {} }) => {
   return (
     <>
       <Label htmlFor="priority">
         Priority<span className="text-destructive">*</span>
       </Label>
-      <Select onValueChange={field.onChange}>
+      <Select value={value} onValueChange={field.onChange}>
         <SelectTrigger
           id="priority"
           className={Boolean(error?.message) && "border-destructive border-2"}

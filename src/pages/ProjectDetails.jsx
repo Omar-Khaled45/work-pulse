@@ -1,28 +1,16 @@
-import { useParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-
 import Loader from "@/components/common/Loader";
 import Error from "@/components/common/Error";
 import ProjectDetailsTasksTable from "@/features/projects/ProjectDetailsTasksTable";
 import ProjectDetailsHeader from "@/features/projects/ProjectDetailsHeader";
 import ProjectStats from "@/features/projects/ProjectStats";
 
-import { getProjectDetails } from "@/services/apiProjects";
+import { useGetProjectDetails } from "@/features/projects/useGetProjectDetails";
 
 const ProjectDetails = () => {
-  const { projectId } = useParams();
+  const { project, isError, error, isFetchingProjectDetails } =
+    useGetProjectDetails();
 
-  const {
-    isPending,
-    isError,
-    data: project,
-    error,
-  } = useQuery({
-    queryKey: ["project-details", projectId],
-    queryFn: () => getProjectDetails(projectId),
-  });
-
-  if (isPending) return <Loader />;
+  if (isFetchingProjectDetails) return <Loader />;
 
   if (isError) {
     return <Error error={error.message} />;

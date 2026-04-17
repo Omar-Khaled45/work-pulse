@@ -1,16 +1,17 @@
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import StyledBadge from "@/components/common/StyledBadge";
 
 import { PROJECT_STATUS, TASK_STATUS } from "@/constants/constants";
 
 import { capitalize } from "@/utils/capitalize";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateProjectStatus } from "@/services/apiProjects";
+
 import { Spinner } from "@/components/ui/spinner";
 
+import { useUpdateProjectStatus } from "@/features/projects/useUpdateProjectStatus";
+
 const ProjectDetailsHeader = ({ project }) => {
+  const { updateProjectStatus, isUpdatingStatus } = useUpdateProjectStatus();
   const { tasks } = project;
 
   const completedTasks = tasks.filter(
@@ -23,24 +24,13 @@ const ProjectDetailsHeader = ({ project }) => {
     project.status !== PROJECT_STATUS.COMPLETED;
 
   const isNotCompleted =
-    tasks.length > 0 &&
-    completedTasks.length !== tasks.length &&
-    project.status === PROJECT_STATUS.COMPLETED;
-
-  const queryClient = useQueryClient();
-
-  // Deleting task
-  const { mutate, isPending: isChangingStatus } = useMutation({
-    mutationFn: updateProjectStatus,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["project-details", project.id],
-      });
-    },
-  });
+    (tasks.length > 0 &&
+      completedTasks.length !== tasks.length &&
+      project.status === PROJECT_STATUS.COMPLETED) ||
+    (tasks.length === 0 && project.status === PROJECT_STATUS.COMPLETED);
 
   const handleStatusChange = (value) => {
-    mutate({ projectId: project.id, status: value });
+    updateProjectStatus({ projectId: project.id, status: value });
   };
 
   return (
@@ -50,7 +40,7 @@ const ProjectDetailsHeader = ({ project }) => {
         <StyledBadge style={project.status} />
       </h2>
       <p className="text-muted-foreground">
-        {capitalize(project.description, "full-stop")}
+        {capitalize(project.description.trim(), "full-stop")}
       </p>
       {isCompleted && (
         <div className="flex items-center gap-4">
@@ -64,7 +54,7 @@ const ProjectDetailsHeader = ({ project }) => {
               Mark project as completed?
             </Button>
           </div>
-          {isChangingStatus && <Spinner />}
+          {isUpdatingStatus && <Spinner />}
         </div>
       )}
 
@@ -80,7 +70,7 @@ const ProjectDetailsHeader = ({ project }) => {
               Change status to active?
             </Button>
           </div>
-          {isChangingStatus && <Spinner />}
+          {isUpdatingStatus && <Spinner />}
         </div>
       )}
       <Separator className="mt-5" />

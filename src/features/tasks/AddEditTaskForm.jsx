@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useParams } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm, Controller } from "react-hook-form";
-import { CircleAlert, Plus } from "lucide-react";
+import { CircleAlert } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,11 +20,20 @@ import DatePicker from "@/components/common/DatePicker";
 import Priority from "@/features/tasks/Priority";
 import AssignMember from "@/features/tasks/AssignMember";
 
-import { addEditTask } from "@/services/apiTasks";
+import { useAddTask } from "@/features/tasks/useAddTask";
+import { useEditTask } from "@/features/tasks/useEditTask";
 
-const AddEditTaskForm = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
   const { projectId } = useParams();
+
+  const { addTask, isAdding } = useAddTask();
+  const { editTask, isEditing } = useEditTask();
+
+  const isWorking = isAdding || isEditing;
+
+  const { id: editId, ...editValues } = taskToEdit;
+
+  const isEditSession = Boolean(editId);
 
   const {
     register,
@@ -34,19 +41,7 @@ const AddEditTaskForm = () => {
     control,
     reset,
     formState: { errors },
-  } = useForm({});
-
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: addEditTask,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["project-details"] });
-      setIsFormOpen(false);
-      reset();
-    },
-  });
+  } = useForm({ defaultValues: isEditSession ? editValues : {} });
 
   const handleOpenForm = (open) => {
     setIsFormOpen(open);
@@ -57,27 +52,44 @@ const AddEditTaskForm = () => {
     const formattedData = {
       ...data,
       project_id: projectId,
-      due_date: data.due_date ? data.due_date.toISOString() : null,
+      due_date: !data.due_date
+        ? null
+        : typeof data.due_date === "string"
+          ? data.due_date
+          : data.due_date.toISOString(),
     };
 
-    mutate(formattedData);
+    if (isEditSession) {
+      editTask(
+        { newTask: formattedData, id: editId },
+        {
+          onSuccess: () => {
+            setIsFormOpen(false);
+            reset();
+          },
+        },
+      );
+    } else {
+      addTask(
+        { newTask: formattedData },
+        {
+          onSuccess: () => {
+            setIsFormOpen(false);
+            reset();
+          },
+        },
+      );
+    }
   };
 
   return (
     <>
-      <Button size="lg" onClick={() => setIsFormOpen((prev) => !prev)}>
-        <Plus /> Add Task
-      </Button>
-
-      <Dialog
-        open={isFormOpen}
-        onOpenChange={!isPending ? handleOpenForm : undefined}
-      >
+      <Dialog open onOpenChange={handleOpenForm}>
         <DialogContent className="w-150 p-5">
           <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader className="gap-1">
               <DialogTitle className="text-2xl font-bold">
-                Create Task
+                {isEditSession ? "Edit Task" : "Create Task"}
               </DialogTitle>
               <DialogDescription className="text-base">
                 Define the scope and foundational details of your project.
@@ -134,7 +146,11 @@ const AddEditTaskForm = () => {
                     name="priority"
                     rules={{ required: "You should select priority level." }}
                     render={({ field }) => (
-                      <Priority field={field} error={errors.priority} />
+                      <Priority
+                        value={taskToEdit.priority || ""}
+                        field={field}
+                        error={errors.priority}
+                      />
                     )}
                   />
                 </Field>
@@ -145,7 +161,11 @@ const AddEditTaskForm = () => {
                     name="assigned_to"
                     rules={{ required: "You should assign a member." }}
                     render={({ field }) => (
-                      <AssignMember field={field} error={errors.assigned_to} />
+                      <AssignMember
+                        value={taskToEdit.assigned_to || ""}
+                        field={field}
+                        error={errors.assigned_to}
+                      />
                     )}
                   />
                 </Field>
@@ -169,13 +189,23 @@ const AddEditTaskForm = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button
-                type="submit"
-                className="p-5 md:w-30"
-                disabled={isPending}
-              >
-                {isPending ? "Adding..." : "Add Task"}
-              </Button>
+              {isEditSession ? (
+                <Button
+                  type="submit"
+                  className="p-5 md:w-30"
+                  disabled={isWorking}
+                >
+                  {isWorking ? "Updating..." : "Update Task"}
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  className="p-5 md:w-30"
+                  disabled={isWorking}
+                >
+                  {isWorking ? "Adding..." : "Add Task"}
+                </Button>
+              )}
             </DialogFooter>
           </form>
         </DialogContent>

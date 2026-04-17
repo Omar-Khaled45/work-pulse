@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import Heading from "@/components/common/Heading";
 import ProjectItemsContainer from "@/features/projects/ProjectItemsContainer";
 import ProjectsOperations from "@/features/projects/ProjectsOperations";
 import CreateEditProjectForm from "@/features/projects/CreateEditProjectForm";
+import { useState } from "react";
 
 const Projects = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -20,7 +20,7 @@ const Projects = () => {
         <Button
           size="lg"
           className="@max-md:w-full"
-          onClick={() => setIsFormOpen((prev) => !prev)}
+          onClick={() => setIsFormOpen(true)}
         >
           <Plus /> Create Project
         </Button>
