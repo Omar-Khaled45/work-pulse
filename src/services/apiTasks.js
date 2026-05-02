@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 
 export const getTasks = async ({ filter, search }) => {
-  let query = supabase.from("tasks").select(`*, project: projects(id, title)`);
+  let query = supabase.from("tasks").select(`*,  project: projects(*)`);
 
   // FILTER
   if (filter) query = query.eq("status", filter.value);
