@@ -25,12 +25,10 @@ const Projects = () => {
           <Plus /> Create Project
         </Button>
 
-        {isFormOpen && (
-          <CreateEditProjectForm
-            isFormOpen={isFormOpen}
-            setIsFormOpen={setIsFormOpen}
-          />
-        )}
+        <CreateEditProjectForm
+          isFormOpen={isFormOpen}
+          setIsFormOpen={setIsFormOpen}
+        />
       </div>
 
       <ProjectsOperations />

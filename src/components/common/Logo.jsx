@@ -25,7 +25,8 @@ const Logo = () => {
         </defs>
       </svg>
       <span className="text-[18px] font-bold tracking-tight text-[#1e1b4b]">
-        Work<span className="text-indigo-500">Pulse</span>
+        <span className="dark:text-white/80">Work</span>
+        <span className="text-indigo-500">Pulse</span>
       </span>
     </div>
   );

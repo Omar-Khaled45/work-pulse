@@ -1,5 +1,4 @@
 import Heading from "@/components/common/Heading";
-import { Home } from "lucide-react";
 
 const AppHome = () => {
   return (

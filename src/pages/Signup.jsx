@@ -6,7 +6,7 @@ const Signup = () => {
   const isDesktop = useMediaQuery("(min-width: 640px)");
 
   return (
-    <div className="bg-sidebar relative flex h-screen items-center justify-center">
+    <div className="bg-background relative flex h-screen items-center justify-center">
       {isDesktop && (
         <div className="absolute top-5 left-5 w-40">
           <Logo />

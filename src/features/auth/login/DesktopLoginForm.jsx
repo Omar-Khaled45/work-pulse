@@ -18,7 +18,9 @@ import { Spinner } from "@/components/ui/spinner";
 const DesktopLoginForm = () => {
   const { login, isPending } = useLogin();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: { email: "omar@mail.com", password: "11111111" },
+  });
 
   const onSubmit = (data) => {
     login(data);

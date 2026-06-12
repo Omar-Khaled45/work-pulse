@@ -13,8 +13,6 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 
 import TaskDetails from "@/features/tasks/TaskDetails";
-import ProtectedRoute from "@/components/common/ProtectedRoute";
-import Example from "./pages/Example";
 
 const queryClient = new QueryClient();
 
@@ -28,13 +26,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes location={state?.backgroundLocation || location}>
-        <Route
-          element={
-            <ProtectedRoute>
-              <AppLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="workspaces" element={<Workspaces />} />
+
+        <Route path="/workspace/:workspaceId" element={<AppLayout />}>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<AppHome />} />
           <Route path="tasks" element={<MyTasks />} />
@@ -42,11 +38,6 @@ const App = () => {
           <Route path="projects/:projectId" element={<ProjectDetails />} />
           <Route path="settings" element={<Settings />} />
         </Route>
-
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="workspaces" element={<Workspaces />} />
-        <Route path="example" element={<Example />} />
       </Routes>
 
       {state?.backgroundLocation && (

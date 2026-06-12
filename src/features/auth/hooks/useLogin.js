@@ -10,7 +10,7 @@ export const useLogin = () => {
     mutationFn: ({ email, password }) => loginAPI({ email, password }),
 
     onSuccess: (data) => {
-      navigate("/home", { replace: true });
+      navigate("/workspaces", { replace: true });
       queryClient.setQueryData(["user"], data.user);
     },
 
