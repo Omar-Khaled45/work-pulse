@@ -32,7 +32,7 @@ const ProjectItem = ({ project }) => {
   const { tasks, ...projectToEdit } = project;
 
   const calcProgress =
-    tasks.length > 0
+    tasks?.length > 0
       ? Math.round(
           (tasks.filter((task) => task.status === TASK_STATUS.DONE).length /
             tasks.length) *

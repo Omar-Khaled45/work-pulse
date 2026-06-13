@@ -13,6 +13,7 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 
 import TaskDetails from "@/features/tasks/TaskDetails";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,14 @@ const App = () => {
       <Routes location={state?.backgroundLocation || location}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="workspaces" element={<Workspaces />} />
+        <Route
+          path="workspaces"
+          element={
+            <ProtectedRoute>
+              <Workspaces />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/workspace/:workspaceId" element={<AppLayout />}>
           <Route index element={<Navigate to="home" replace />} />

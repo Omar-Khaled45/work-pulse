@@ -19,12 +19,15 @@ import DatePicker from "@/components/common/DatePicker";
 
 import { useCreateProject } from "@/features/projects/useCreateProject";
 import { useEditProject } from "@/features/projects/useEditProject";
+import { useParams } from "react-router";
 
 const CreateEditProjectForm = ({
   isFormOpen,
   setIsFormOpen,
   projectToEdit = {},
 }) => {
+  const { workspaceId } = useParams();
+
   const { isCreating, createProject } = useCreateProject();
 
   const { isEditing, editProject } = useEditProject();
@@ -53,6 +56,7 @@ const CreateEditProjectForm = ({
   const onSubmit = (data) => {
     const formattedData = {
       ...data,
+      workspace_id: workspaceId,
       due_date: !data.due_date
         ? null
         : typeof data.due_date === "string"

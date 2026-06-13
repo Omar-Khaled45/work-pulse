@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 
 export const getProjects = async ({ filter, search }) => {
-  let query = supabase.from("projects").select(`*, tasks(*)`);
+  let query = supabase.from("projects").select(`*`);
 
   // FILTER
   if (filter) query = query.eq("status", filter.value);
@@ -36,10 +36,16 @@ export const getProjectDetails = async (projectId) => {
 };
 
 export const createEditProject = async ({ newProject, id }) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   let query = supabase.from("projects");
 
+  console.log(newProject);
+
   // Create Project
-  if (!id) query = query.insert({ ...newProject });
+  if (!id) query = query.insert({ ...newProject, created_by: user.id });
 
   // Edit Project
   if (id) query = query.update({ ...newProject }).eq("id", id);

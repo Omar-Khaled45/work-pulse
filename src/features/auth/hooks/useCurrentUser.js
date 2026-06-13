@@ -16,6 +16,5 @@ export const useCurrentUser = () => {
     user,
     isPending,
     isError,
-    isAuthenticated: !!user && user?.role !== "guest",
   };
 };

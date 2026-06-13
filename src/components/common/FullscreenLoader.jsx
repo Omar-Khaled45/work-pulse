@@ -18,7 +18,7 @@ const pulseStyle = `
   }
 `;
 
-const WorkPulseLoader = () => {
+const FullscreenLoader = () => {
   return (
     <>
       <style>{pulseStyle}</style>
@@ -47,4 +47,4 @@ const WorkPulseLoader = () => {
   );
 };
 
-export default WorkPulseLoader;
+export default FullscreenLoader;
