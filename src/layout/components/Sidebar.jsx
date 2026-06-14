@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 
 import AppNav from "@/components/common/AppNav";
 import Logo from "@/components/common/Logo";
+import { Link } from "react-router";
 
 const Sidebar = ({ isSidebarOpened, setIsSidebarOpened }) => {
   return (
@@ -16,7 +17,9 @@ const Sidebar = ({ isSidebarOpened, setIsSidebarOpened }) => {
       </div>
       <div className="w-64">
         <div className="mt-8 flex flex-col p-5 md:mt-0">
-          <Logo />
+          <Link to="/workspaces">
+            <Logo />
+          </Link>
           <AppNav />
         </div>
       </div>

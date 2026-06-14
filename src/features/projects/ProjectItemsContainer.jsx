@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { FolderPlus } from "lucide-react";
 
 import Loader from "@/components/common/Loader";
@@ -10,6 +10,8 @@ import { useGetProjects } from "@/features/projects/useGetProjects";
 
 const ProjectItemsContainer = () => {
   const [searchParams] = useSearchParams();
+
+  const { workspaceId } = useParams();
 
   const filterValue = searchParams.get("status") || "all";
   const searchValue = searchParams.get("q") || "";
@@ -28,6 +30,7 @@ const ProjectItemsContainer = () => {
   const { projects, isFetchingProjects, isError, error } = useGetProjects({
     filter,
     search,
+    workspaceId,
   });
 
   if (isFetchingProjects) return <Loader />;
