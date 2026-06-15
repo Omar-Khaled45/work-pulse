@@ -8,10 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import Empty from "@/components/common/Empty";
 import AddEditTaskForm from "@/features/tasks/AddEditTaskForm";
 import TaskRow from "@/features/tasks/TaskRow";
-import { Button } from "@/components/ui/button";
 
 const ProjectDetailsTasksTable = ({ project }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);

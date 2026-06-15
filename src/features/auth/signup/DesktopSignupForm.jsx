@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { CircleAlert } from "lucide-react";
+
+import { useSignup } from "@/features/auth/hooks/useSignup";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
 import { Spinner } from "@/components/ui/spinner";
-import { CircleAlert } from "lucide-react";
 import InputErrorMessage from "@/components/common/InputErrorMessage";
-import { useSignup } from "../hooks/useSignup";
 
 const DesktopSignupForm = () => {
   const { signup, isPending } = useSignup();

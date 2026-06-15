@@ -1,6 +1,7 @@
+import { useMediaQuery } from "@/hooks/use-media-query";
+
 import Logo from "@/components/common/Logo";
 import SignupForm from "@/features/auth/signup/SignupForm";
-import { useMediaQuery } from "@/hooks/use-media-query";
 
 const Signup = () => {
   const isDesktop = useMediaQuery("(min-width: 640px)");

@@ -1,5 +1,5 @@
-import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 import { getTaskDetails } from "@/services/apiTasks";
 

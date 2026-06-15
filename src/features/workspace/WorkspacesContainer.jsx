@@ -1,8 +1,10 @@
-import WorkspaceItem from "./WorkspaceItem";
-import Loader from "@/components/common/Loader";
 import { FolderPlus } from "lucide-react";
-import Empty from "@/components/common/Empty";
+
 import { useGetWorkspaces } from "./useGetWorkspaces";
+
+import WorkspaceItem from "@/features/workspace/WorkspaceItem";
+import Loader from "@/components/common/Loader";
+import Empty from "@/components/common/Empty";
 
 const WorkspacesContainer = () => {
   const { workspaces, isPending } = useGetWorkspaces();

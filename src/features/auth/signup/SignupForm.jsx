@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
+
 import DesktopSignupForm from "@/features/auth/signup/DesktopSignupForm";
 import MobileSignupForm from "@/features/auth/signup/MobileSignupForm";
 

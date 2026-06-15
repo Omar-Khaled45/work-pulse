@@ -1,5 +1,6 @@
-import { addEditTask } from "@/services/apiTasks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { addEditTask } from "@/services/apiTasks";
 
 export const useAddTask = () => {
   const queryClient = useQueryClient();

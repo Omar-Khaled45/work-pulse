@@ -1,12 +1,12 @@
 import { FolderPlus } from "lucide-react";
 import { useSearchParams } from "react-router";
 
-import TaskItem from "./TaskItem";
+import { useGetTasks } from "@/features/tasks/useGetTasks";
+
+import TaskItem from "@/features/tasks/TaskItem";
 import Loader from "@/components/common/Loader";
 import Empty from "@/components/common/Empty";
 import Error from "@/components/common/Error";
-
-import { useGetTasks } from "@/features/tasks/useGetTasks";
 
 const TaskItemsContainer = () => {
   const [searchParams] = useSearchParams();

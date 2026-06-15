@@ -1,6 +1,7 @@
-import { getUserRole } from "@/services/apiWorkspaces";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
+
+import { getUserRole } from "@/services/apiWorkspaces";
 
 export const useGetWorkspaceRoles = () => {
   const { workspaceId } = useParams();

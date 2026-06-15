@@ -1,3 +1,7 @@
+import { formatDate, capitalize } from "@/utils/index";
+
+import { useUpdateTaskStatus } from "@/features/tasks/useUpdateTaskStatus";
+
 import {
   Dialog,
   DialogContent,
@@ -12,11 +16,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import StyledBadge from "@/components/common/StyledBadge";
-
-import { capitalize } from "@/utils/capitalize";
-import { formatDate } from "@/utils/formatDate";
-
-import { useUpdateTaskStatus } from "@/features/tasks/useUpdateTaskStatus";
 
 const DesktopTaskDetails = ({ task, handleClose }) => {
   const { updateTaskStatus, isUpdatingStatus } = useUpdateTaskStatus();

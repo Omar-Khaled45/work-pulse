@@ -1,13 +1,13 @@
 import { useParams, useSearchParams } from "react-router";
 import { FolderPlus } from "lucide-react";
 
-import Loader from "@/components/common/Loader";
-import Empty from "@/components/common/Empty";
-import ProjectItem from "./ProjectItem";
-import Error from "@/components/common/Error";
-
 import { useGetProjects } from "@/features/projects/useGetProjects";
 import { useGetWorkspaceRoles } from "../workspace/useGetWorkspaceRoles";
+
+import Loader from "@/components/common/Loader";
+import Empty from "@/components/common/Empty";
+import Error from "@/components/common/Error";
+import ProjectItem from "@/features/projects/ProjectItem";
 
 const ProjectItemsContainer = () => {
   const [searchParams] = useSearchParams();

@@ -1,5 +1,6 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router";
+
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 const WorkspaceItem = ({ workspace }) => {
   return (

@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { useGetTaskDetails } from "@/features/tasks/useGetTaskDetails";
+
 import Loader from "@/components/common/Loader";
 import Error from "@/components/common/Error";
 import MobileTaskDetails from "@/features/tasks/MobileTaskDetails";
 import DesktopTaskDetails from "@/features/tasks/DesktopTaskDetails";
-
-import { useMediaQuery } from "@/hooks/use-media-query";
-import { useGetTaskDetails } from "@/features/tasks/useGetTaskDetails";
 
 const TaskDetails = () => {
   const { isFetchingTaskDetails, task, isError, error } = useGetTaskDetails();

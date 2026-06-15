@@ -1,14 +1,13 @@
-import { Separator } from "@/components/ui/separator";
-import StyledBadge from "@/components/common/StyledBadge";
-
 import { PROJECT_STATUS, TASK_STATUS } from "@/constants/constants";
 
 import { capitalize } from "@/utils/capitalize";
-import { Button } from "@/components/ui/button";
-
-import { Spinner } from "@/components/ui/spinner";
 
 import { useUpdateProjectStatus } from "@/features/projects/useUpdateProjectStatus";
+
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import StyledBadge from "@/components/common/StyledBadge";
 
 const ProjectDetailsHeader = ({ project }) => {
   const { updateProjectStatus, isUpdatingStatus } = useUpdateProjectStatus();

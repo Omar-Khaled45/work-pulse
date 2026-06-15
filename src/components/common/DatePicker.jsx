@@ -1,7 +1,7 @@
 import { format } from "date-fns";
+import { CircleAlert } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -9,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CircleAlert } from "lucide-react";
 
 const DatePicker = ({ field, error }) => {
   const today = new Date();

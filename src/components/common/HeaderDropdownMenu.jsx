@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { LogOut, Settings, UserIcon } from "lucide-react";
 
+import { useLogout } from "@/features/auth/hooks/useLogout";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useLogout } from "@/features/auth/hooks/useLogout";
 
 const HeaderDropdownMenu = () => {
   const [theme, setTheme] = useState("");

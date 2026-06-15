@@ -1,10 +1,10 @@
+import { useGetProjectDetails } from "@/features/projects/useGetProjectDetails";
+
 import Loader from "@/components/common/Loader";
 import Error from "@/components/common/Error";
 import ProjectDetailsTasksTable from "@/features/projects/ProjectDetailsTasksTable";
 import ProjectDetailsHeader from "@/features/projects/ProjectDetailsHeader";
 import ProjectStats from "@/features/projects/ProjectStats";
-
-import { useGetProjectDetails } from "@/features/projects/useGetProjectDetails";
 
 const ProjectDetails = () => {
   const { project, isError, error, isFetchingProjectDetails } =

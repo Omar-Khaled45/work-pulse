@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 
-import Logo from "@/components/common/Logo";
 import {
   Sidebar,
   SidebarContent,
@@ -17,6 +16,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Logo from "@/components/common/Logo";
 
 const AppSidebar = () => {
   const location = useLocation();

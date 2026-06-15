@@ -1,8 +1,8 @@
 import { X } from "lucide-react";
+import { Link } from "react-router";
 
 import AppNav from "@/components/common/AppNav";
 import Logo from "@/components/common/Logo";
-import { Link } from "react-router";
 
 const Sidebar = ({ isSidebarOpened, setIsSidebarOpened }) => {
   return (

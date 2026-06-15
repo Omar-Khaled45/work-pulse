@@ -1,13 +1,14 @@
+import { useState } from "react";
+import { Plus, SearchIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { Plus, SearchIcon } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import CreateWorkspaceForm from "./CreateWorkspaceForm";
-import { useState } from "react";
+import CreateWorkspaceForm from "@/features/workspace/CreateWorkspaceForm";
 
 const WorkspacesOperations = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);

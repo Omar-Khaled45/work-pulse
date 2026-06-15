@@ -1,7 +1,5 @@
-import { Plus } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import Heading from "@/components/common/Heading";
 import MyTasksOperations from "@/features/tasks/MyTasksOperations";
 import TaskItemsContainer from "@/features/tasks/TaskItemsContainer";

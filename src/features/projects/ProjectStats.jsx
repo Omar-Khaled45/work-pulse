@@ -1,12 +1,12 @@
 import { Calendar, CheckSquare } from "lucide-react";
 
+import { TASK_STATUS } from "@/constants/constants";
+
+import { formatDate } from "@/utils/index";
+
 import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-
-import { TASK_STATUS } from "@/constants/constants";
-
-import { formatDate } from "@/utils/formatDate";
 
 const ProjectStats = ({ project }) => {
   const { tasks } = project;

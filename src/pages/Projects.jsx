@@ -1,12 +1,13 @@
+import { useState } from "react";
 import { Plus } from "lucide-react";
+
+import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
 
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/common/Heading";
 import ProjectItemsContainer from "@/features/projects/ProjectItemsContainer";
 import ProjectsOperations from "@/features/projects/ProjectsOperations";
 import CreateEditProjectForm from "@/features/projects/CreateEditProjectForm";
-import { useState } from "react";
-import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
 
 const Projects = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);

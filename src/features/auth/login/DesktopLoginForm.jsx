@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
+import { useLogin } from "@/features/auth/hooks/useLogin";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,8 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
-import { useLogin } from "../hooks/useLogin";
 import { Spinner } from "@/components/ui/spinner";
 
 const DesktopLoginForm = () => {

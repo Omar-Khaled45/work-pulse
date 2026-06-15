@@ -1,5 +1,7 @@
 import { CalendarDays, Clock } from "lucide-react";
 
+import { formatDate, capitalize } from "@/utils/index";
+
 import {
   Drawer,
   DrawerContent,
@@ -7,9 +9,6 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import StyledBadge from "@/components/common/StyledBadge";
-
-import { capitalize } from "@/utils/capitalize";
-import { formatDate } from "@/utils/formatDate";
 
 const MobileTaskDetails = ({ task, handleClose }) => {
   return (

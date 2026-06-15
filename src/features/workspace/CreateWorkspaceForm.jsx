@@ -1,5 +1,9 @@
-import { useForm, Controller } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 import { CircleAlert } from "lucide-react";
+
+import { useCreateWorkspace } from "./useCreateWorkspace";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +18,6 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useCreateWorkspace } from "./useCreateWorkspace";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 
 const CreateWorkspaceForm = ({ isFormOpen, setIsFormOpen }) => {
   const { isCreating, createWorkspace } = useCreateWorkspace();

@@ -2,6 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Calendar, EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 
+import { TASK_STATUS } from "@/constants/constants";
+
+import { formatDate } from "@/utils/index";
+
+import { useDeleteProject } from "@/features/projects/useDeleteProject";
+
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
@@ -16,12 +22,6 @@ import { Button } from "@/components/ui/button";
 import StyledBadge from "@/components/common/StyledBadge";
 import AlertConfirmDelete from "@/components/common/AlertConfirmDelete";
 import CreateEditProjectForm from "@/features/projects/CreateEditProjectForm";
-
-import { TASK_STATUS } from "@/constants/constants";
-
-import { formatDate } from "@/utils/formatDate";
-
-import { useDeleteProject } from "@/features/projects/useDeleteProject";
 
 const ProjectItem = ({ project, role }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);

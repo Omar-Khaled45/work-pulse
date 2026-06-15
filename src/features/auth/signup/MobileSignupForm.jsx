@@ -1,3 +1,9 @@
+import { CircleAlert } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router";
+
+import { useSignup } from "@/features/auth/hooks/useSignup";
+
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -8,16 +14,12 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { CircleAlert } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router";
-import { useLogin } from "../hooks/useLogin";
 import { Spinner } from "@/components/ui/spinner";
 import InputErrorMessage from "@/components/common/InputErrorMessage";
 import Logo from "@/components/common/Logo";
 
 const MobileSignupForm = () => {
-  const { login, isPending } = useLogin();
+  const { signup, isPending } = useSignup();
 
   const {
     register,
@@ -27,7 +29,7 @@ const MobileSignupForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    login(data);
+    signup(data);
   };
 
   return (

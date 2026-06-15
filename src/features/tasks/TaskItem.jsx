@@ -1,8 +1,7 @@
-import StyledBadge from "@/components/common/StyledBadge";
-import { Card } from "@/components/ui/card";
+import { formatDate, capitalize } from "@/utils/index";
 
-import { capitalize } from "@/utils/capitalize";
-import { formatDate } from "@/utils/formatDate";
+import { Card } from "@/components/ui/card";
+import StyledBadge from "@/components/common/StyledBadge";
 
 const TaskItem = ({ task }) => {
   const {

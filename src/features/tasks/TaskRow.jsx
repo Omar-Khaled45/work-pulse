@@ -8,6 +8,11 @@ import {
   Trash2,
 } from "lucide-react";
 
+import { formatDate } from "@/utils/index";
+
+import { useDeleteTask } from "@/features/tasks/useDeleteTask";
+import { useDuplicateTask } from "@/features/tasks/useDuplicateTask";
+
 import { TableCell, TableRow } from "@/components/ui/table";
 import {
   DropdownMenu,
@@ -20,11 +25,6 @@ import { Button } from "@/components/ui/button";
 import StyledBadge from "@/components/common/StyledBadge";
 import AlertConfirmDelete from "@/components/common/AlertConfirmDelete";
 import AddEditTaskForm from "@/features/tasks/AddEditTaskForm";
-
-import { formatDate } from "@/utils/formatDate";
-
-import { useDeleteTask } from "@/features/tasks/useDeleteTask";
-import { useDuplicateTask } from "@/features/tasks/useDuplicateTask";
 
 const TaskRow = ({ task }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);

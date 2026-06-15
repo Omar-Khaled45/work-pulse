@@ -1,5 +1,6 @@
-import { getWorkspaces } from "@/services/apiWorkspaces";
 import { useQuery } from "@tanstack/react-query";
+
+import { getWorkspaces } from "@/services/apiWorkspaces";
 
 export const useGetWorkspaces = () => {
   const { data: workspaces, isPending } = useQuery({
