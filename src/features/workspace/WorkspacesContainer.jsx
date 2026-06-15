@@ -1,15 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import WorkspaceItem from "./WorkspaceItem";
-import { getWorkspaces } from "@/services/apiWorkspaces";
 import Loader from "@/components/common/Loader";
 import { FolderPlus } from "lucide-react";
 import Empty from "@/components/common/Empty";
+import { useGetWorkspaces } from "./useGetWorkspaces";
 
 const WorkspacesContainer = () => {
-  const { data: workspaces, isPending } = useQuery({
-    queryKey: ["workspaces"],
-    queryFn: getWorkspaces,
-  });
+  const { workspaces, isPending } = useGetWorkspaces();
 
   if (isPending) return <Loader />;
 

@@ -7,6 +7,7 @@ import ProjectItem from "./ProjectItem";
 import Error from "@/components/common/Error";
 
 import { useGetProjects } from "@/features/projects/useGetProjects";
+import { useGetWorkspaceRoles } from "../workspace/useGetWorkspaceRoles";
 
 const ProjectItemsContainer = () => {
   const [searchParams] = useSearchParams();
@@ -33,7 +34,9 @@ const ProjectItemsContainer = () => {
     workspaceId,
   });
 
-  if (isFetchingProjects) return <Loader />;
+  const { data, isGettingRoles } = useGetWorkspaceRoles();
+
+  if (isFetchingProjects || isGettingRoles) return <Loader />;
 
   if (isError) {
     console.log(error);
@@ -61,7 +64,7 @@ const ProjectItemsContainer = () => {
   return (
     <div className="grid gap-4 @xl:grid-cols-2 @2xl:grid-cols-3">
       {projects.map((project) => (
-        <ProjectItem key={project.id} project={project} />
+        <ProjectItem key={project.id} project={project} role={data.role} />
       ))}
     </div>
   );

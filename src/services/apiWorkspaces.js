@@ -39,3 +39,18 @@ export const createWorkspace = async (newWorkspace) => {
 
   return workspace;
 };
+
+export const getUserRole = async ({ workspaceId }) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: memberData } = await supabase
+    .from("workspace_members")
+    .select("role")
+    .eq("user_id", user.id)
+    .eq("workspace_id", workspaceId)
+    .single();
+
+  return memberData;
+};

@@ -1,6 +1,8 @@
-import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
-import FullscreenLoader from "./FullscreenLoader";
 import { Navigate } from "react-router";
+
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+
+import FullscreenLoader from "@/components/common/FullscreenLoader";
 
 const ProtectedRoute = ({ children }) => {
   const { user, isPending } = useCurrentUser();

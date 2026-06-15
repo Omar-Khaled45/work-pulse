@@ -23,11 +23,14 @@ import { formatDate } from "@/utils/formatDate";
 
 import { useDeleteProject } from "@/features/projects/useDeleteProject";
 
-const ProjectItem = ({ project }) => {
+const ProjectItem = ({ project, role }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const { deleteProject, isDeleting } = useDeleteProject();
+
+  const isAdmin = role === "admin";
 
   const { tasks, ...projectToEdit } = project;
 
@@ -66,28 +69,30 @@ const ProjectItem = ({ project }) => {
           <div className="flex items-center gap-1">
             <StyledBadge style={project.status} />
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <EllipsisVertical />
-                </Button>
-              </DropdownMenuTrigger>
+            {isAdmin && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <EllipsisVertical />
+                  </Button>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent>
-                <DropdownMenuItem onSelect={() => setIsFormOpen(true)}>
-                  <Pencil /> Edit
-                </DropdownMenuItem>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onSelect={() => setIsFormOpen(true)}>
+                    <Pencil /> Edit
+                  </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
+                  <DropdownMenuSeparator />
 
-                <DropdownMenuItem
-                  variant="destructive"
-                  onSelect={() => setIsAlertOpen(true)}
-                >
-                  <Trash2 /> Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onSelect={() => setIsAlertOpen(true)}
+                  >
+                    <Trash2 /> Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
         <CardContent className={"text-muted-foreground space-y-5 px-0"}>
