@@ -7,26 +7,26 @@ import ProjectDetailsHeader from "@/features/projects/ProjectDetailsHeader";
 import ProjectStats from "@/features/projects/ProjectStats";
 
 const ProjectDetails = () => {
-  const { project, isError, error, isFetchingProjectDetails } =
-    useGetProjectDetails();
+	const { project, isError, error, isFetchingProjectDetails } =
+		useGetProjectDetails();
 
-  if (isFetchingProjectDetails) return <Loader />;
+	if (isFetchingProjectDetails) return <Loader />;
 
-  if (isError) {
-    return <Error error={error.message} />;
-  }
+	if (isError) {
+		return <Error error={error.message} />;
+	}
 
-  return (
-    <>
-      <ProjectDetailsHeader project={project} />
+	return (
+		<>
+			<ProjectDetailsHeader project={project} />
 
-      <div className="jut flex flex-col gap-6 @5xl:flex-row">
-        <ProjectDetailsTasksTable project={project} />
+			<div className="jut flex flex-col gap-6 @5xl:flex-row">
+				<ProjectDetailsTasksTable project={project} />
 
-        <ProjectStats project={project} />
-      </div>
-    </>
-  );
+				<ProjectStats project={project} />
+			</div>
+		</>
+	);
 };
 
 export default ProjectDetails;

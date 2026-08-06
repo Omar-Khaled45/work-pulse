@@ -4,17 +4,17 @@ import { useParams } from "react-router";
 import { getTaskDetails } from "@/services/apiTasks";
 
 export const useGetTaskDetails = () => {
-  const { taskId } = useParams();
+	const { taskId } = useParams();
 
-  const {
-    isPending: isFetchingTaskDetails,
-    isError,
-    data: task,
-    error,
-  } = useQuery({
-    queryKey: ["task-details", taskId],
-    queryFn: () => getTaskDetails(taskId),
-  });
+	const {
+		isPending: isFetchingTaskDetails,
+		isError,
+		data: task,
+		error,
+	} = useQuery({
+		queryKey: ["task-details", taskId],
+		queryFn: () => getTaskDetails(taskId),
+	});
 
-  return { isFetchingTaskDetails, isError, task, error };
+	return { isFetchingTaskDetails, isError, task, error };
 };

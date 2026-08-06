@@ -4,129 +4,129 @@ import { SearchIcon, SearchX } from "lucide-react";
 
 import { Field, FieldGroup } from "@/components/ui/field";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
+	InputGroup,
+	InputGroupAddon,
+	InputGroupInput,
 } from "@/components/ui/input-group";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 const Filter = ({ options }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchQuery, setSearchQuery] = useState("");
+	const [isOpen, setIsOpen] = useState(false);
 
-  const handleChange = (value) => {
-    searchParams.set("status", value);
-    setSearchParams(searchParams);
-  };
+	const handleChange = (value) => {
+		searchParams.set("status", value);
+		setSearchParams(searchParams);
+	};
 
-  const handleSearchQuery = () => {
-    if (searchQuery.length < 3 && searchQuery !== "") {
-      setIsOpen(true);
-      return;
-    }
+	const handleSearchQuery = () => {
+		if (searchQuery.length < 3 && searchQuery !== "") {
+			setIsOpen(true);
+			return;
+		}
 
-    if (searchQuery === "") {
-      searchParams.delete("q");
-      setSearchParams(searchParams);
-    } else {
-      searchParams.set("q", searchQuery);
-      setSearchParams(searchParams);
-    }
-  };
+		if (searchQuery === "") {
+			searchParams.delete("q");
+			setSearchParams(searchParams);
+		} else {
+			searchParams.set("q", searchQuery);
+			setSearchParams(searchParams);
+		}
+	};
 
-  const removeFilter = () => {
-    searchParams.delete("status");
-    searchParams.delete("q");
-    setSearchQuery("");
-    setSearchParams(searchParams);
-  };
+	const removeFilter = () => {
+		searchParams.delete("status");
+		searchParams.delete("q");
+		setSearchQuery("");
+		setSearchParams(searchParams);
+	};
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSearchQuery(searchParams.get("q") || "");
-  }, [searchParams]);
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setSearchQuery(searchParams.get("q") || "");
+	}, [searchParams]);
 
-  return (
-    <FieldGroup>
-      <Field orientation="responsive" className="max-w-xl">
-        <InputGroup className={"flex-1 bg-white"}>
-          <InputGroupInput
-            id="inline-start-input"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <InputGroupAddon align="inline-start">
-            <SearchIcon className="text-muted-foreground" />
-          </InputGroupAddon>
-        </InputGroup>
+	return (
+		<FieldGroup>
+			<Field orientation="responsive" className="max-w-xl">
+				<InputGroup className={"flex-1 bg-white"}>
+					<InputGroupInput
+						id="inline-start-input"
+						placeholder="Search..."
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+					/>
+					<InputGroupAddon align="inline-start">
+						<SearchIcon className="text-muted-foreground" />
+					</InputGroupAddon>
+				</InputGroup>
 
-        <div className="flex items-center gap-2">
-          <Button onClick={handleSearchQuery} className="flex-1">
-            Search
-          </Button>
+				<div className="flex items-center gap-2">
+					<Button onClick={handleSearchQuery} className="flex-1">
+						Search
+					</Button>
 
-          <Select
-            value={searchParams.get("status") || "all"}
-            onValueChange={(value) => handleChange(value)}
-          >
-            <SelectTrigger className="w-45 bg-white">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {options.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+					<Select
+						value={searchParams.get("status") || "all"}
+						onValueChange={(value) => handleChange(value)}
+					>
+						<SelectTrigger className="w-45 bg-white">
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								{options.map((option) => (
+									<SelectItem key={option.value} value={option.value}>
+										{option.label}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="flex flex-col items-center sm:max-w-md">
-            <DialogTitle>
-              <SearchX strokeWidth={1.5} size={50} />
-            </DialogTitle>
-            <DialogDescription className="text-center text-lg font-semibold">
-              Please enter at least 3 characters for searching.
-            </DialogDescription>
-            <DialogClose asChild>
-              <Button type="button" size="lg">
-                Close
-              </Button>
-            </DialogClose>
-          </DialogContent>
-        </Dialog>
+				<Dialog open={isOpen} onOpenChange={setIsOpen}>
+					<DialogContent className="flex flex-col items-center sm:max-w-md">
+						<DialogTitle>
+							<SearchX strokeWidth={1.5} size={50} />
+						</DialogTitle>
+						<DialogDescription className="text-center text-lg font-semibold">
+							Please enter at least 3 characters for searching.
+						</DialogDescription>
+						<DialogClose asChild>
+							<Button type="button" size="lg">
+								Close
+							</Button>
+						</DialogClose>
+					</DialogContent>
+				</Dialog>
 
-        {(searchParams.get("q") ||
-          (searchParams.get("status") &&
-            searchParams.get("status") !== "all")) && (
-          <Button variant="outline" onClick={removeFilter}>
-            Remove Filters
-          </Button>
-        )}
-      </Field>
-    </FieldGroup>
-  );
+				{(searchParams.get("q") ||
+					(searchParams.get("status") &&
+						searchParams.get("status") !== "all")) && (
+					<Button variant="outline" onClick={removeFilter}>
+						Remove Filters
+					</Button>
+				)}
+			</Field>
+		</FieldGroup>
+	);
 };
 
 export default Filter;

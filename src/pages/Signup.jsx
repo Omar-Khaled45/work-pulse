@@ -4,18 +4,18 @@ import Logo from "@/components/common/Logo";
 import SignupForm from "@/features/auth/signup/SignupForm";
 
 const Signup = () => {
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+	const isDesktop = useMediaQuery("(min-width: 640px)");
 
-  return (
-    <div className="bg-background relative flex h-screen items-center justify-center">
-      {isDesktop && (
-        <div className="absolute top-5 left-5 w-40">
-          <Logo />
-        </div>
-      )}
-      <SignupForm />
-    </div>
-  );
+	return (
+		<div className="bg-background relative flex h-screen items-center justify-center">
+			{isDesktop && (
+				<div className="absolute top-5 left-5 w-40">
+					<Logo />
+				</div>
+			)}
+			<SignupForm />
+		</div>
+	);
 };
 
 export default Signup;

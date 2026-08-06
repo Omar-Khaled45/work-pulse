@@ -10,40 +10,40 @@ import ProjectsOperations from "@/features/projects/ProjectsOperations";
 import CreateEditProjectForm from "@/features/projects/CreateEditProjectForm";
 
 const Projects = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+	const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const { data } = useGetWorkspaceRoles();
+	const { data } = useGetWorkspaceRoles();
 
-  return (
-    <>
-      <div className="mb-3 flex justify-between space-y-3 @max-md:mb-3 @max-md:flex-col @md:items-center">
-        <Heading title={"Projects"}>
-          Manage all your team's ongoing initiatives.
-        </Heading>
+	return (
+		<>
+			<div className="mb-3 flex justify-between space-y-3 @max-md:mb-3 @max-md:flex-col @md:items-center">
+				<Heading title={"Projects"}>
+					Manage all your team's ongoing initiatives.
+				</Heading>
 
-        {data?.role === "admin" && (
-          <>
-            <Button
-              size="lg"
-              className="@max-md:w-full"
-              onClick={() => setIsFormOpen(true)}
-            >
-              <Plus /> Create Project
-            </Button>
+				{data?.role === "admin" && (
+					<>
+						<Button
+							size="lg"
+							className="@max-md:w-full"
+							onClick={() => setIsFormOpen(true)}
+						>
+							<Plus /> Create Project
+						</Button>
 
-            <CreateEditProjectForm
-              isFormOpen={isFormOpen}
-              setIsFormOpen={setIsFormOpen}
-            />
-          </>
-        )}
-      </div>
+						<CreateEditProjectForm
+							isFormOpen={isFormOpen}
+							setIsFormOpen={setIsFormOpen}
+						/>
+					</>
+				)}
+			</div>
 
-      <ProjectsOperations />
+			<ProjectsOperations />
 
-      <ProjectItemsContainer />
-    </>
-  );
+			<ProjectItemsContainer />
+		</>
+	);
 };
 
 export default Projects;

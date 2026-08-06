@@ -5,13 +5,13 @@ import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import FullscreenLoader from "@/components/common/FullscreenLoader";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, isPending } = useCurrentUser();
+	const { user, isPending } = useCurrentUser();
 
-  if (isPending) return <FullscreenLoader />;
+	if (isPending) return <FullscreenLoader />;
 
-  if (!user) return <Navigate to="/login" replace />;
+	if (!user) return <Navigate to="/login" replace />;
 
-  return children;
+	return children;
 };
 
 export default ProtectedRoute;

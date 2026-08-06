@@ -4,21 +4,21 @@ import { useNavigate } from "react-router";
 import { logout as logoutAPI } from "@/services/apiAuth";
 
 export const useLogout = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
-  const { mutate: logout, isPending } = useMutation({
-    mutationFn: logoutAPI,
+	const { mutate: logout, isPending } = useMutation({
+		mutationFn: logoutAPI,
 
-    onSuccess: () => {
-      navigate("/login", { replace: true });
-      queryClient.removeQueries("current-user");
-    },
+		onSuccess: () => {
+			navigate("/login", { replace: true });
+			queryClient.removeQueries("current-user");
+		},
 
-    onError: (err) => {
-      console.log("Error: ", err);
-    },
-  });
+		onError: (err) => {
+			console.log("Error: ", err);
+		},
+	});
 
-  return { logout, isPending };
+	return { logout, isPending };
 };

@@ -20,41 +20,41 @@ const queryClient = new QueryClient();
 window.__TANSTACK_QUERY_CLIENT__ = queryClient;
 
 const App = () => {
-  const location = useLocation();
+	const location = useLocation();
 
-  const state = location.state;
+	const state = location.state;
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Routes location={state?.backgroundLocation || location}>
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route
-          path="workspaces"
-          element={
-            <ProtectedRoute>
-              <Workspaces />
-            </ProtectedRoute>
-          }
-        />
+	return (
+		<QueryClientProvider client={queryClient}>
+			<Routes location={state?.backgroundLocation || location}>
+				<Route path="login" element={<Login />} />
+				<Route path="signup" element={<Signup />} />
+				<Route
+					path="workspaces"
+					element={
+						<ProtectedRoute>
+							<Workspaces />
+						</ProtectedRoute>
+					}
+				/>
 
-        <Route path="/workspace/:workspaceId" element={<AppLayout />}>
-          <Route index element={<Navigate to="home" replace />} />
-          <Route path="home" element={<AppHome />} />
-          <Route path="tasks" element={<MyTasks />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="projects/:projectId" element={<ProjectDetails />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-      </Routes>
+				<Route path="/workspace/:workspaceId" element={<AppLayout />}>
+					<Route index element={<Navigate to="home" replace />} />
+					<Route path="home" element={<AppHome />} />
+					<Route path="tasks" element={<MyTasks />} />
+					<Route path="projects" element={<Projects />} />
+					<Route path="projects/:projectId" element={<ProjectDetails />} />
+					<Route path="settings" element={<Settings />} />
+				</Route>
+			</Routes>
 
-      {state?.backgroundLocation && (
-        <Routes>
-          <Route path="task/:taskId" element={<TaskDetails />} />
-        </Routes>
-      )}
-    </QueryClientProvider>
-  );
+			{state?.backgroundLocation && (
+				<Routes>
+					<Route path="task/:taskId" element={<TaskDetails />} />
+				</Routes>
+			)}
+		</QueryClientProvider>
+	);
 };
 
 export default App;

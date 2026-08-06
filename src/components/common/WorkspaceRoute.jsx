@@ -1,11 +1,11 @@
 import { Navigate, useParams } from "react-router";
 
 const WorkspaceRoute = ({ children }) => {
-  const { workspaceId } = useParams();
+	const { workspaceId } = useParams();
 
-  if (!workspaceId) return <Navigate to="/workspaces" />;
+	if (!workspaceId) return <Navigate to="/workspaces" />;
 
-  return children;
+	return children;
 };
 
 export default WorkspaceRoute;

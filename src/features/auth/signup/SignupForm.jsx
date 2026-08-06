@@ -4,11 +4,11 @@ import DesktopSignupForm from "@/features/auth/signup/DesktopSignupForm";
 import MobileSignupForm from "@/features/auth/signup/MobileSignupForm";
 
 const SignupForm = () => {
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+	const isDesktop = useMediaQuery("(min-width: 640px)");
 
-  if (isDesktop) return <DesktopSignupForm />;
+	if (isDesktop) return <DesktopSignupForm />;
 
-  return <MobileSignupForm />;
+	return <MobileSignupForm />;
 };
 
 export default SignupForm;

@@ -4,19 +4,19 @@ import { useNavigate } from "react-router";
 import { signup as signupAPI } from "@/services/apiAuth";
 
 export const useSignup = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const { mutate: signup, isPending } = useMutation({
-    mutationFn: (userData) => signupAPI(userData),
+	const { mutate: signup, isPending } = useMutation({
+		mutationFn: (userData) => signupAPI(userData),
 
-    onSuccess: () => {
-      navigate("/workspaces", { replace: true });
-    },
+		onSuccess: () => {
+			navigate("/workspaces", { replace: true });
+		},
 
-    onError: (err) => {
-      console.log("Error: ", err);
-    },
-  });
+		onError: (err) => {
+			console.log("Error: ", err);
+		},
+	});
 
-  return { signup, isPending };
+	return { signup, isPending };
 };

@@ -4,12 +4,12 @@ import { useParams } from "react-router";
 import { getUserRole } from "@/services/apiWorkspaces";
 
 export const useGetWorkspaceRoles = () => {
-  const { workspaceId } = useParams();
+	const { workspaceId } = useParams();
 
-  const { data, isPending: isGettingRoles } = useQuery({
-    queryKey: ["workspace-role", workspaceId],
-    queryFn: () => getUserRole({ workspaceId }),
-  });
+	const { data, isPending: isGettingRoles } = useQuery({
+		queryKey: ["workspace-role", workspaceId],
+		queryFn: () => getUserRole({ workspaceId }),
+	});
 
-  return { data, isGettingRoles };
+	return { data, isGettingRoles };
 };
