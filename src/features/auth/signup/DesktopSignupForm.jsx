@@ -179,15 +179,6 @@ const DesktopSignupForm = () => {
 								/>
 							)}
 						</div>
-
-						<div>
-							<Link
-								to="/reset-password"
-								className="text-primary float-end font-semibold"
-							>
-								Forget Password?
-							</Link>
-						</div>
 					</div>
 
 					<Button

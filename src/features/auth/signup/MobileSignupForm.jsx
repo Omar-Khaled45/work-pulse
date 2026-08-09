@@ -179,14 +179,6 @@ const MobileSignupForm = () => {
 							</Field>
 						</FieldGroup>
 					</FieldSet>
-					<div>
-						<Link
-							to="/reset-password"
-							className="text-primary float-end font-semibold"
-						>
-							Forget Password?
-						</Link>
-					</div>
 
 					<Field orientation="vertical">
 						<Button type="submit" size="lg" disabled={isPending}>
