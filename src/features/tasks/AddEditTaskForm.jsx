@@ -22,12 +22,14 @@ import { Textarea } from "@/components/ui/textarea";
 import DatePicker from "@/components/common/DatePicker";
 import Priority from "@/features/tasks/Priority";
 import AssignMember from "@/features/tasks/AssignMember";
+import { useCurrentUser } from "../auth/hooks/useCurrentUser";
 
 const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 	const { projectId } = useParams();
 
 	const { addTask, isAdding } = useAddTask();
 	const { editTask, isEditing } = useEditTask();
+	const { user } = useCurrentUser();
 
 	const isWorking = isAdding || isEditing;
 
@@ -54,6 +56,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 		const formattedData = {
 			...data,
 			project_id: projectId,
+			created_by: user.id,
 			due_date: !data.due_date
 				? null
 				: typeof data.due_date === "string"
