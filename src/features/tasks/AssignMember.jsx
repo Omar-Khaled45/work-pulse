@@ -1,5 +1,7 @@
 import { CircleAlert } from "lucide-react";
 
+import { useGetWorkspaceMembers } from "@/features/workspace/useGetWorkspaceMembers";
+
 import {
 	Select,
 	SelectContent,
@@ -10,13 +12,15 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
-const AssignMember = ({ value, field, error }) => {
+const AssignMember = ({ selectedValue, field, error }) => {
+	const { members } = useGetWorkspaceMembers();
+
 	return (
 		<>
 			<Label htmlFor="priority">
 				Assignee<span className="text-destructive">*</span>
 			</Label>
-			<Select value={value} onValueChange={field.onChange}>
+			<Select value={selectedValue} onValueChange={field.onChange}>
 				<SelectTrigger
 					id="priority"
 					className={Boolean(error?.message) && "border-destructive border-2"}
@@ -25,9 +29,11 @@ const AssignMember = ({ value, field, error }) => {
 				</SelectTrigger>
 				<SelectContent>
 					<SelectGroup>
-						<SelectItem value="User 1">User 1</SelectItem>
-						<SelectItem value="User 2">User 2</SelectItem>
-						<SelectItem value="User 3">User 3</SelectItem>
+						{members?.map((member) => (
+							<SelectItem key={member.id} value={member.user_id}>
+								{member.user_id.split("-")[0]}: {member.role}
+							</SelectItem>
+						))}
 					</SelectGroup>
 				</SelectContent>
 			</Select>

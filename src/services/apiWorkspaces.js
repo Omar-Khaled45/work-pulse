@@ -54,3 +54,14 @@ export const getUserRole = async ({ workspaceId }) => {
 
 	return memberData;
 };
+
+export const getWorkspaceMembers = async ({ workspaceId }) => {
+  const { data, error } = await supabase
+    .from("workspace_members")
+    .select(`*`)
+    .eq("workspace_id", workspaceId);
+
+  if (error) throw new Error("Workspaces members could not be loaded.");
+
+  return data;
+};

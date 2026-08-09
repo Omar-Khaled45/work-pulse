@@ -92,14 +92,14 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 								{isEditSession ? "Edit Task" : "Create Task"}
 							</DialogTitle>
 							<DialogDescription className="text-base">
-								Define the scope and foundational details of your project.
+								Define the scope and foundational details of your task.
 							</DialogDescription>
 						</DialogHeader>
 
 						<FieldGroup className="gap-4 [&_input]:py-5 [&_input]:text-base [&_label]:text-base [&_textarea]:pb-5 [&_textarea]:text-base">
 							<Field className="space-y-1">
 								<Label htmlFor="title">
-									Project Title<span className="text-destructive">*</span>
+									Task Title<span className="text-destructive">*</span>
 								</Label>
 								<Input
 									aria-invalid={Boolean(errors.title)}
@@ -129,7 +129,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 										required: "Project description is required.",
 										minLength: { value: 3, message: "Minimum 3 characters." },
 									})}
-									placeholder="Provide a high-level overview of the project's objectives."
+									placeholder="Provide a high-level overview of the task's objectives."
 									className="resize-none"
 								/>
 								{errors.description && (
@@ -147,7 +147,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 										rules={{ required: "You should select priority level." }}
 										render={({ field }) => (
 											<Priority
-												value={taskToEdit.priority || ""}
+												selectedValue={taskToEdit.priority}
 												field={field}
 												error={errors.priority}
 											/>
@@ -162,7 +162,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 										rules={{ required: "You should assign a member." }}
 										render={({ field }) => (
 											<AssignMember
-												value={taskToEdit.assigned_to || ""}
+												selectedValue={taskToEdit.assigned_to}
 												field={field}
 												error={errors.assigned_to}
 											/>
