@@ -12,6 +12,7 @@ import { formatDate } from "@/utils/index";
 
 import { useDeleteTask } from "@/features/tasks/useDeleteTask";
 import { useDuplicateTask } from "@/features/tasks/useDuplicateTask";
+import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
 
 import { TableCell, TableRow } from "@/components/ui/table";
 import {
@@ -32,6 +33,7 @@ const TaskRow = ({ task }) => {
 
 	const { deleteTask, isDeleting } = useDeleteTask();
 	const { duplicateTask } = useDuplicateTask();
+	const { data, isGettingRoles } = useGetWorkspaceRoles();
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -95,36 +97,38 @@ const TaskRow = ({ task }) => {
 					<Calendar size={16} />
 					{formatDate(due_date)}
 				</TableCell>
-				<TableCell className="text-right">
-					<DropdownMenu disabled>
-						<DropdownMenuTrigger asChild>
-							<Button
-								variant="ghost"
-								size="icon"
-								className="size-8 hover:bg-black/10 dark:hover:bg-white/10!"
-							>
-								<MoreHorizontalIcon />
-								<span className="sr-only">Open menu</span>
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem onSelect={() => setIsFormOpen(true)}>
-								<Pencil /> Edit
-							</DropdownMenuItem>
-							<DropdownMenuItem onSelect={handleDuplicateTask}>
-								<CopyPlus />
-								Duplicate
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem
-								variant="destructive"
-								onSelect={() => setIsAlertOpen(true)}
-							>
-								<Trash2 /> Delete
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</TableCell>
+				{!isGettingRoles && data.role === "admin" && (
+					<TableCell className="text-right">
+						<DropdownMenu disabled>
+							<DropdownMenuTrigger asChild>
+								<Button
+									variant="ghost"
+									size="icon"
+									className="size-8 hover:bg-black/10 dark:hover:bg-white/10!"
+								>
+									<MoreHorizontalIcon />
+									<span className="sr-only">Open menu</span>
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end">
+								<DropdownMenuItem onSelect={() => setIsFormOpen(true)}>
+									<Pencil /> Edit
+								</DropdownMenuItem>
+								<DropdownMenuItem onSelect={handleDuplicateTask}>
+									<CopyPlus />
+									Duplicate
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem
+									variant="destructive"
+									onSelect={() => setIsAlertOpen(true)}
+								>
+									<Trash2 /> Delete
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</TableCell>
+				)}
 			</TableRow>
 
 			{isFormOpen && (

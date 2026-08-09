@@ -41,7 +41,9 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 		control,
 		reset,
 		formState: { errors },
-	} = useForm({ defaultValues: isEditSession ? editValues : {} });
+	} = useForm({
+		defaultValues: isEditSession ? editValues : { priority: "low" },
+	});
 
 	const handleOpenForm = (open) => {
 		setIsFormOpen(open);
@@ -146,11 +148,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 										name="priority"
 										rules={{ required: "You should select priority level." }}
 										render={({ field }) => (
-											<Priority
-												selectedValue={taskToEdit.priority}
-												field={field}
-												error={errors.priority}
-											/>
+											<Priority field={field} error={errors.priority} />
 										)}
 									/>
 								</Field>

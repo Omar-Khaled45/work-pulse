@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FilePlus, Plus } from "lucide-react";
 
+import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
+
 import {
 	Table,
 	TableBody,
@@ -15,6 +17,8 @@ import TaskRow from "@/features/tasks/TaskRow";
 
 const ProjectDetailsTasksTable = ({ project }) => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
+
+	const { data, isGettingRoles } = useGetWorkspaceRoles();
 
 	const { tasks } = project;
 
@@ -45,7 +49,9 @@ const ProjectDetailsTasksTable = ({ project }) => {
 									<TableHead>Status</TableHead>
 									<TableHead>Priority</TableHead>
 									<TableHead>Due Date</TableHead>
-									<TableHead className="text-right">Actions</TableHead>
+									{!isGettingRoles && data.role === "admin" && (
+										<TableHead className="text-right">Actions</TableHead>
+									)}
 								</TableRow>
 							</TableHeader>
 							<TableBody className="[&_td]:px-6 [&_td]:py-3 [&_td]:font-semibold">
