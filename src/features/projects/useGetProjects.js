@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 import { getProjects } from "@/services/apiProjects";
 
-export const useGetProjects = ({ filter, search, workspaceId }) => {
+export const useGetProjects = ({ filter, search }) => {
+	const { workspaceId } = useParams();
+
 	const {
 		isPending: isFetchingProjects,
 		isError,
