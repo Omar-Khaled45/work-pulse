@@ -162,11 +162,7 @@ const AddEditTaskForm = ({ setIsFormOpen, taskToEdit = {} }) => {
 										name="assigned_to"
 										rules={{ required: "You should assign a member." }}
 										render={({ field }) => (
-											<AssignMember
-												selectedValue={taskToEdit.assigned_to}
-												field={field}
-												error={errors.assigned_to}
-											/>
+											<AssignMember field={field} error={errors.assigned_to} />
 										)}
 									/>
 								</Field>
