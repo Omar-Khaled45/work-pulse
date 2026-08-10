@@ -14,6 +14,7 @@ import Signup from "@/pages/Signup";
 
 import TaskDetails from "@/features/tasks/TaskDetails";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import EmailVerification from "./pages/EmailVerification";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => {
 						</ProtectedRoute>
 					}
 				/>
+				<Route path="email-verification" element={<EmailVerification />} />
 
 				<Route path="/workspace/:workspaceId" element={<AppLayout />}>
 					<Route index element={<Navigate to="home" replace />} />

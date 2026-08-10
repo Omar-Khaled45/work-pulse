@@ -25,7 +25,7 @@ export const signup = async ({ email, password, first_name, last_name }) => {
 
 	if (error) throw new Error(error.message);
 
-	console.log(data);
+	return data;
 };
 
 export const getCurrentUser = async () => {

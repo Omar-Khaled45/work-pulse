@@ -10,7 +10,7 @@ export const useSignup = () => {
 		mutationFn: (userData) => signupAPI(userData),
 
 		onSuccess: () => {
-			navigate("/workspaces", { replace: true });
+			navigate("/email-verification", { replace: true });
 		},
 
 		onError: (err) => {
