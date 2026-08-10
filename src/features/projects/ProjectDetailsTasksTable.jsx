@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { FilePlus, Plus } from "lucide-react";
 
-import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
-
 import {
 	Table,
 	TableBody,
@@ -15,10 +13,8 @@ import Empty from "@/components/common/Empty";
 import AddEditTaskForm from "@/features/tasks/AddEditTaskForm";
 import TaskRow from "@/features/tasks/TaskRow";
 
-const ProjectDetailsTasksTable = ({ project }) => {
+const ProjectDetailsTasksTable = ({ project, data }) => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
-
-	const { data, isGettingRoles } = useGetWorkspaceRoles();
 
 	const { tasks } = project;
 
@@ -28,9 +24,11 @@ const ProjectDetailsTasksTable = ({ project }) => {
 				<div className="flex justify-between">
 					<h5 className="text-lg font-semibold">Project Tasks</h5>
 
-					<Button size="lg" onClick={() => setIsFormOpen((prev) => !prev)}>
-						<Plus /> Add Task
-					</Button>
+					{data.role === "admin" && (
+						<Button size="lg" onClick={() => setIsFormOpen((prev) => !prev)}>
+							<Plus /> Add Task
+						</Button>
+					)}
 				</div>
 
 				{tasks.length === 0 ? (
@@ -49,7 +47,7 @@ const ProjectDetailsTasksTable = ({ project }) => {
 									<TableHead>Status</TableHead>
 									<TableHead>Priority</TableHead>
 									<TableHead>Due Date</TableHead>
-									{!isGettingRoles && data.role === "admin" && (
+									{data.role === "admin" && (
 										<TableHead className="text-right">Actions</TableHead>
 									)}
 								</TableRow>

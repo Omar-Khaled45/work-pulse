@@ -1,4 +1,5 @@
 import { useGetProjectDetails } from "@/features/projects/useGetProjectDetails";
+import { useGetWorkspaceRoles } from "@/features/workspace/useGetWorkspaceRoles";
 
 import Loader from "@/components/common/Loader";
 import Error from "@/components/common/Error";
@@ -10,7 +11,9 @@ const ProjectDetails = () => {
 	const { project, isError, error, isFetchingProjectDetails } =
 		useGetProjectDetails();
 
-	if (isFetchingProjectDetails) return <Loader />;
+	const { data, isGettingRoles } = useGetWorkspaceRoles();
+
+	if (isFetchingProjectDetails || isGettingRoles) return <Loader />;
 
 	if (isError) {
 		return <Error error={error.message} />;
@@ -21,7 +24,7 @@ const ProjectDetails = () => {
 			<ProjectDetailsHeader project={project} />
 
 			<div className="jut flex flex-col gap-6 @5xl:flex-row">
-				<ProjectDetailsTasksTable project={project} />
+				<ProjectDetailsTasksTable project={project} data={data} />
 
 				<ProjectStats project={project} />
 			</div>
