@@ -30,23 +30,22 @@ const App = () => {
 			<Routes location={state?.backgroundLocation || location}>
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route
-					path="workspaces"
-					element={
-						<ProtectedRoute>
-							<Workspaces />
-						</ProtectedRoute>
-					}
-				/>
-				<Route path="email-verification" element={<EmailVerification />} />
 
-				<Route path="/workspace/:workspaceId" element={<AppLayout />}>
-					<Route index element={<Navigate to="home" replace />} />
-					<Route path="home" element={<AppHome />} />
-					<Route path="tasks" element={<MyTasks />} />
-					<Route path="projects" element={<Projects />} />
-					<Route path="projects/:projectId" element={<ProjectDetails />} />
-					<Route path="settings" element={<Settings />} />
+				<Route element={<ProtectedRoute />}>
+					<Route index element={<Navigate to="workspaces" replace />} />
+
+					<Route path="workspaces" element={<Workspaces />} />
+
+					<Route path="email-verification" element={<EmailVerification />} />
+
+					<Route path="/workspace/:workspaceId" element={<AppLayout />}>
+						<Route index element={<Navigate to="home" replace />} />
+						<Route path="home" element={<AppHome />} />
+						<Route path="tasks" element={<MyTasks />} />
+						<Route path="projects" element={<Projects />} />
+						<Route path="projects/:projectId" element={<ProjectDetails />} />
+						<Route path="settings" element={<Settings />} />
+					</Route>
 				</Route>
 			</Routes>
 

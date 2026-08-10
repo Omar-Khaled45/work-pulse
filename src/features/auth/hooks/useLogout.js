@@ -11,8 +11,9 @@ export const useLogout = () => {
 		mutationFn: logoutAPI,
 
 		onSuccess: () => {
+			queryClient.removeQueries({ queryKey: ["current-user"] });
+
 			navigate("/login", { replace: true });
-			queryClient.removeQueries("current-user");
 		},
 
 		onError: (err) => {
